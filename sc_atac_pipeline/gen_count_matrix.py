@@ -48,13 +48,16 @@ def get_args():
 	args = parser.parse_args()
 	return args
 
-def gen_fname(oprefix, exp):
+def gen_fname(oprefix, exp, test):
 	if oprefix[-1] == '/': 
 		fname = oprefix+exp
-	elif '/' in oprefix: 
-		fname = oprefix+'/'+exp
+	# elif '/' in oprefix: 
+	# 	fname = oprefix+'/'+exp
 	else: 
 		fname = oprefix+exp
+
+	if test:
+		fname += '_test'
 	return fname
 
 # convert bam file to sam file so it can be parsed
@@ -156,9 +159,9 @@ def get_peak_counts(peak_df, bfile, count_df, exp, args):
 				without_barcode += 1
 				continue
 
-		# update count in df
-		col_ind = '_'.join([exp, b])
-		count_df.loc[(chrom, start, stop), col_ind] += 1
+			# update count in df
+			col_ind = '_'.join([exp, b])
+			count_df.loc[(chrom, start, stop), col_ind] += 1
 
 
 	print('%d reads have have barcode' % with_barcode)
@@ -209,7 +212,7 @@ def main():
 	test = args.test
 
 	if args.oprefix:
-		fname = gen_fname(args.oprefix, exp)
+		fname = gen_fname(args.oprefix, exp, test)
 
 	# get peaks from bed file
 	peak_df = read_peakfile(pfile, test)

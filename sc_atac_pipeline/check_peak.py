@@ -19,13 +19,39 @@ def get_args():
 
 	parser.add_argument('--coords', '--c', dest='coords',
 		help='coords to look for peak in format chr1:1-100')
-	parser.add_argument('--gene_name', '--g', dest='gene_name',
-		help='gene name to look for peaks in')
+	parser.add_argument('--genes', '--g', dest='genes',
+		help='comma separated gene names to look for peaks in')
 	parser.add_argument('-matrix', '-m', dest='counts_mat',
 		help='counts matrix to look in')
 
 	args = parser.parse_args()
 	return args
+
+def make_ofile_name(matfile, gene):
+	fname = matfile.split('.csv')[0]
+	fname += '_'
+	fname += gene
+	fname += '.csv'
+	return fname
+
+def get_gene_names(genes):
+
+	if ',' in genes:
+		genes = genes.split(',')
+	return genes
+
+def coord_ind_to_multiind(df):
+
+	df['chrom'] = df.apply(
+		lambda x: x.peak_ind.split(':')[0], axis=1)
+	df['start'] = df.apply(
+		lambda x: int(x.peak_ind.split(':')[1].split('-')[0]), axis=1)
+	df['stop'] = df.apply(
+		lambda x: int(x.peak_ind.split(':')[1].split('-')[1]), axis=1)
+	df.drop(columns='peak_ind', inplace=True)
+	# df.set_index(['chrom', 'start', 'stop'], inplace=True)
+
+	return df
 
 # finds peaks within a region defined by the user
 def find_peaks(chrom, start, stop, df):
@@ -34,8 +60,14 @@ def find_peaks(chrom, start, stop, df):
 	coord_range = [i for i in range(start, stop+1)]
 
 	peaks = df.loc[df.chrom == chrom]
-	peaks = df[df.apply(
+	print('After filtering on chromosome number...')
+	print(peaks.chrom.unique())
+	peaks = peaks[peaks.apply(
 		lambda x: x.start in coord_range or x.stop in coord_range, axis=1)]
+	print('After filtering on peak location')
+	print(peaks.chrom.unique())
+
+	peaks = peaks.copy()
 	
 	return peaks
 
@@ -77,19 +109,35 @@ def main():
 	args = get_args()
 
 	# did the user give a gene name or coords?
-	if not args.coords and not args.gene_name:
-		sys.exit('Missing coordinates --coords or gene name --gene_name')
-	elif args.coords and args.gene_name:
-		sys.exit('Please use only --coords or --gene_name, not both')
-	elif args.gene_name:
-		(chrom, start, stop) = get_coords_from_gene_name(args.gene_name)
+	if not args.coords and not args.genes:
+		sys.exit('Missing coordinates --coords or gene name --genes')
+	elif args.coords and args.genes:
+		sys.exit('Please use only --coords or --genes, not both')
+	elif args.genes:
+		genes = get_gene_names(args.genes)
+		if isinstance(genes, list):
+			chroms = []
+			starts = []
+			stops = []
+			for g in genes:
+				(chrom, start, stop) = get_coords_from_gene_name(g)
+				chroms.append(chrom)
+				starts.append(start)
+				stops.append(stop)
+			chrom = chroms
+			start = starts
+			stop = stops
+		else:
+			(chrom, start, stop) = get_coords_from_gene_name(genes)
 	else: 
 		(chrom,loc) = args.coords.split(':')
 		(start,stop) = loc.split('-')
 		(start,stop) = (int(start),int(stop))
 
 	# read counts matrix in
-	df = pd.read_csv(args.counts_mat, sep='\t')
+	print('Loading in counts matrix...')
+	df = pd.read_csv(args.counts_mat, sep=',')
+	df = coord_ind_to_multiind(df)
 
 	# some output for the user to look at
 	print()
@@ -98,15 +146,23 @@ def main():
 	except:
 		print('Experiment '+ args.counts_mat.split('_')[0])
 	print('------------------------------------')
-	print()
 
-	# find peaks and display info
-	df = find_peaks(chrom, start, stop, df)
-	if df.empty: 
-		print('No peaks found in input region')
-		return
+	# do we have more than one set of coords?
+	i = 0
+	for c, sr, sp in zip(chrom, start, stop):
+		print()
+		if args.genes:
+			print('Looking for peaks in gene: %s ' % genes[i])
+		i += 1
+		# find peaks and display info
+		peaks_df = find_peaks(c, sr, sp, df)
+		if peaks_df.empty: 
+			print('No peaks found in input region')
+			continue
+		peaks_df.to_csv(make_ofile_name(args.counts_mat, genes[i-1]))
 
-	peak_deets(df)
+		peak_deets(peaks_df)
+
 
 if __name__ == '__main__':
 	main()
