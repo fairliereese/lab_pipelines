@@ -16,7 +16,7 @@ def get_args():
 	desc= 'Takes in a list of peak files to merge and outputs a merged file'
 	parser = argparse.ArgumentParser(description=desc)
 
-	parser.add_argument("--peaks", "-p", dest="pfile", 
+	parser.add_argument("-peaks", "-p", dest="pfile", 
 		help = "CSV file with filepaths of peakfiles to merge")
 	parser.add_argument("--o", dest="oprefix",
 		help = "output merged peak file prefix, with filepath")
