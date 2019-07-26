@@ -34,7 +34,7 @@ def get_args():
 	parser.add_argument("--o", dest="oprefix",
 		help = "output merged peak file prefix, with filepath")
 	parser.add_argument("--test", dest="test", default=False, action='store_true',
-		help = "only run on 200 peaks so you can validate performance")
+		help = "only run on 200 peaks/5 barcodes so you can validate performance")
 	parser.add_argument("--full_csv", dest="full_csv", default=False, action='store_true',
 		help = "output to full csv")
 	parser.add_argument("--sparse_csv", dest="sparse_csv", default=False, action='store_true',
@@ -60,21 +60,12 @@ def gen_fname(oprefix, exp, test):
 		fname += '_test'
 	return fname
 
-# convert bam file to sam file so it can be parsed
-def bam_to_sam(bamfile, oprefix):
-	samfile = oprefix+'.sam'
-	pysam.view('-h', bamfile, '-o', samfile, catch_stdout=False)
-	return samfile
-
 # read peakfile into dataframe
 def read_peakfile(pfile, test):
 	df = pd.read_csv(pfile, sep='\t', 
 		names=['chrom', 'start', 'stop', 'x', 'y'])
 
 	df.drop(['x', 'y'], axis=1, inplace=True)
-	# df['peak_ind'] = df.apply(lambda x: x.chrom+':'+str(x.start)+'-'+str(x.stop), axis=1)
-	# df.set_index('peak_ind', inplace=True)
-	# print(df.head())
 
 	# testing
 	if test:
@@ -101,8 +92,6 @@ def get_barcodes(barcode_file, exp, test):
 		ind = ['_'.join([exp, b]) for b in barcodes[:5]]
 		barcodes = barcodes[:5]
 
-	# exps = [exp for i in range(len(barcodes))]
-	# ind = ['_'.join([exp, b]) for b in barcodes]
 	df = pd.DataFrame(index=ind)
 	df['barcode'] = pd.Series(barcodes).values
 	df['exp'] = pd.Series(exps).values
@@ -129,13 +118,7 @@ def init_count_df(barcodes, peak_df, exp):
 	# df = pd.DataFrame(data, index=row_inds, columns=col_inds)
 	# row-wise addition
 	df = pd.DataFrame(columns=col_inds)
-	# print('initialized count matrix: ')
-	# print(df.head())
 
-	# # add combined coordinates field to use as index after populating
-	# peak_ind = [chroms[i]+':'+str(starts[i])+'-'+str(stops[i])
-	# 	for i in range(len(chroms))]
-	# df['peak_ind'] = peak_ind
 
 	return df
 
@@ -154,17 +137,13 @@ def get_peak_counts(peak_df, bfile, count_df, exp, args, cols):
 		stop = int(peak.stop)
 		chrom = peak.chrom
 
-		# row-wise addition
+		# set up dataframe to hold each peak's counts
 		cols = np.asarray(cols)
 		data = np.zeros(shape=(1,len(cols)))
 		peak_row = pd.DataFrame(data, columns=cols)
 		peak_ind = chrom+':'+str(start)+'-'+str(stop)
 		peak_row['peak_ind'] = peak_ind
 		peak_row.set_index('peak_ind', inplace=True)
-
-		# peak_row['chrom'] = chrom
-		# peak_row['start'] = start
-		# peak_row['stop'] = stop
 
 		for read in samfile.fetch(chrom, start-1, stop):
 
@@ -177,42 +156,20 @@ def get_peak_counts(peak_df, bfile, count_df, exp, args, cols):
 				b = read.get_tag('RG').split('_')
 				b = '_'.join([b[1],b[2]])
 				with_barcode += 1
-				# print(b)
 			except: 
 				without_barcode += 1
 				continue
 
-			# update count in df
-			# col_ind = '_'.join([exp, b])
-			# count_df.loc[(chrom, start, stop), col_ind] += 1
-
-			# row-wise addition
+			# add updated row to df
 			col_ind = '_'.join([exp, b])
 			if args.test: 
 				if col_ind in cols:
 					peak_row.loc[:, col_ind] += 1
 			else: peak_row.loc[:, col_ind] += 1
-		# print(peak_row)
-		# print()
-
-		# row-wise addition
-		# peak_row = peak_row.to_dict()
-		# print(peak_row)
 		count_df = count_df.append(peak_row)
 
 	print('%d reads have have barcode' % with_barcode)
 	print('%d reads missing barcode' % without_barcode)
-
-	# drop chrom, start, stop cols to save space, reindex with peak_ind
-	# print(count_df.head())
-	# count_df.reset_index(inplace=True)
-	# count_df.rename({'level_0': 'chrom', 'level_1': 'start', 'level_2': 'stop'},
-	# 	inplace=True, axis=1)
-	# # add peak index
-	# count_df['peak_ind'] = count_df.apply(
-	# 	lambda x: x.chrom+':'+str(x.start)+'-'+str(x.stop), axis=1)
-	# count_df.drop(['chrom', 'start', 'stop'], inplace=True, axis=1)
-	# count_df.set_index('peak_ind', inplace=True)
 
 	# make this a sparse df
 	if args.sparse_csv or args.sparse_anndata:
@@ -221,7 +178,6 @@ def get_peak_counts(peak_df, bfile, count_df, exp, args, cols):
 
 
 	print(count_df.head())
-	# print(count_df.index)
 	print()
 
 	return count_df
@@ -259,7 +215,6 @@ def main():
 
 	# initialize anndata matrix of 0s 
 	count_df = init_count_df(barcodes.barcode.values.tolist(), peak_df, exp)
-	# print(count_df.head())
 	count_df = get_peak_counts(peak_df, bfile, count_df, exp, args, col_ind)
 
 	# write to csv full matrix
@@ -295,16 +250,6 @@ def main():
 	# print end time
 	print()
 	print("--- %s seconds ---" % (time.time() - start_time))
-
-
-
-	# print(count_df.head())
-
-
-	# count_df.to_csv(exp+'_counts.csv')
-
-
-
 
 if __name__ == '__main__':
 	main()
