@@ -24,6 +24,7 @@ def get_args():
 	args = parser.parse_args()
 	return args
 
+# get iterable list of peakfiles
 def get_peakfiles(pfile):
 
 	with open(pfile, 'r') as infile:
@@ -52,9 +53,7 @@ def merge_peaks(chrom_peaks):
 	# for each chromosome
 	for c, peaks in chrom_peaks.items():
 		outlist = []
-		# print(np.shape(peaks))
 		prev_start = peaks[0][0]
-		# print(prev_start)
 		prev_stop = peaks[0][1]
 
 		# loop through each peak
@@ -83,7 +82,7 @@ def get_chrom_peaks(df):
 
 	return chrom_peaks
 
-# 
+# write peaks to output bed file
 def write_peaks(merged_peaks, merge_file):
 
 	with open(merge_file, 'w') as ofile:
@@ -91,7 +90,7 @@ def write_peaks(merged_peaks, merge_file):
 			for p in peaks:
 				ofile.write('\t'.join([str(c), str(p[0]), str(p[1])])+'\n')
 
-#
+# create bedfile name
 def gen_ofile_name(oprefix):
 	oprefix += '_merged.bed'
 	return oprefix
@@ -102,7 +101,6 @@ def main():
 
 	df = make_peakfile_df(peakfiles)
 	chrom_peaks = get_chrom_peaks(df)
-	# print(chrom_peaks['chr1'][:10])
 	chrom_peaks = merge_peaks(chrom_peaks)
 
 	# write merged peaks to output file

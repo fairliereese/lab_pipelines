@@ -153,14 +153,22 @@ def find_peak_counts(counts_mat, peaks, barcodes, test):
 			if peak_id in peak_list:
 
 				line = line.strip().split(',')[1:]
+				# counts = [count for count in line]
 				counts = [int(float(count)) for count in line]
 				if test:
 					counts = counts[:5]
 
 				# add counts for each relevant peak
 				# print('len counts %d '%len(counts))
+				# print(type(counts))
 				# print('len columns in df %d '%len(counts_df.columns))
-				counts_df.loc[peak_id] = counts
+				# print(counts_df)
+				# print(peak_id)
+				# print(peak_id in counts_df.index)
+				# print(counts_df.index)
+				# print(counts)
+				# counts_df.loc[peak_id] = [counts]
+				print(counts_df.head())
 
 	return counts_df
 
@@ -196,7 +204,7 @@ def disp_peak_deets(counts_df):
 		# print(have_peak)
 
 		print('%d out of %d cells (%2f pct) have reads in region' % (have_peak, num_barcodes, have_peak/num_barcodes))
-		print('Total of %d reads' % num_reads)
+		print('Total of %s reads' % num_reads)
 
 # finds peaks within a region defined by the user
 def find_peaks(chrom, start, stop, df):
