@@ -127,6 +127,13 @@ def find_peaks_in_region(chrom, start, stop, peaks, gene_peaks, gene=None):
 
 	# append to preexisting df if not empty
 	if not peaks.empty:
+		peaks.drop(['chrom', 'start', 'stop'], inplace=True, axis=1)
+		# print('peaks')
+		# print(peaks.columns)
+		# print(peaks.head())
+		# print('gene_peaks')
+		# print(gene_peaks.head())
+		# print(gene_peaks.columns)
 		peaks = gene_peaks.append(peaks)
 	else: 
 		print('No peaks found in input region')
@@ -167,83 +174,60 @@ def find_peak_counts(counts_mat, peaks, barcodes, test):
 				# print(peak_id in counts_df.index)
 				# print(counts_df.index)
 				# print(counts)
-				# counts_df.loc[peak_id] = [counts]
-				print(counts_df.head())
+				counts_df.loc[peak_id] = [counts]
+				# print(counts_df.head())
 
 	return counts_df
 
 # display details about reads found w/i each region
 # TODO make this work with just an input region as well ie 
 # remove 'gene' dependencies
-def disp_peak_deets(counts_df):
+def peak_deets(counts_df, any_gene=False):
 
 	# mess with indices
-	num_barcodes = len(counts_df.index)
+	num_barcodes = len(counts_df.columns)
 	counts_df.reset_index(level=0, drop=True, inplace=True) 
 	counts_df.reset_index(inplace=True)
 	
 	# group by gene name and sum to get counts ∀ cell
 	counts_df = counts_df.groupby('gene').sum()
-	# print(counts_df)
+	# print(counts_df.head())
 	# print(counts_df.index)
 	# print(counts_df.columns)
 
+	if not any_gene or any_gene == 'both':
+		gene_peak_deets(counts_df)
+	if any_gene or any_gene == 'both':
+		print('Read details for any candidate region')
+		counts_df['temp'] = 0
+		# print(counts_df.head())
+		counts_df = counts_df.groupby(['temp']).sum()
+		counts_df.reset_index(level='temp', drop=True, inplace=True)
+		disp_peak_deets(counts_df)
+
+def gene_peak_deets(df):
 	# loop through each gene
-	for g in counts_df.index:
+	for g in df.index:
 		print('Read details for %s region' % g)
-		g_df = counts_df.loc[g]
-		print()
+		g_df = df.loc[[g]]
+		# print(g_df.head())
+		disp_peak_deets(g_df)	
 
-		# get number of cells that have reads and number of reads ∀ cell
-		have_peak = np.count_nonzero(g_df.values)
-		# print(have_peak)
-		# have_peak = g_df.apply(lambda x: np.count_nonzero(x.values.tolist()), axis=1).values[0]
-		num_reads = g_df.values.sum()
-		# print(num_reads)
-		# num_reads = g_df.apply(lambda x: sum(x.values.tolist()), axis=1).values[0]
-		# print(have_peak)
-
-		print('%d out of %d cells (%2f pct) have reads in region' % (have_peak, num_barcodes, have_peak/num_barcodes))
-		print('Total of %s reads' % num_reads)
-
-# finds peaks within a region defined by the user
-def find_peaks(chrom, start, stop, df):
-
-	print('Searching for peaks in region: %s %d-%d' % (chrom, start, stop))
-	coord_range = [i for i in range(start, stop+1)]
-
-	peaks = df.loc[df.chrom == chrom]
-	print('After filtering on chromosome number...')
-	print(peaks.chrom.unique())
-	peaks = peaks[peaks.apply(
-		lambda x: x.start in coord_range or x.stop in coord_range, axis=1)]
-	print('After filtering on peak location')
-	print(peaks.chrom.unique())
-
-	peaks = peaks.copy()
+def disp_peak_deets(df):
 	
-	return peaks
+	num_cells = len(df.columns)
 
-# display details of peaks found in region to user
-def peak_deets(df):
+	# number of cells with reads and number of reads for each cell
+	have_peak = np.count_nonzero(df.values)
+	num_reads = df.values.sum()
 
-	df.set_index(['chrom', 'start', 'stop'], inplace=True)
+	print('%d out of %d cells (%2f pct) have reads in region' % (have_peak, num_cells, (have_peak/num_cells)*100))
+	print('Total of %s reads' % num_reads)
+	print()
 
-	df['thisisdumb'] = 0
-	num_barcodes = len(df.columns)
-
-	df = df.groupby(['thisisdumb']).sum()
-	df.reset_index(level='thisisdumb', drop=True, inplace=True)
-
-	have_peak = df.apply(lambda x: np.count_nonzero(x.values.tolist()), axis=1).values[0]
-	num_reads = df.apply(lambda x: sum(x.values.tolist()), axis=1).values[0]
-	# print(have_peak)
-
-	print('%d out of %d cells (%.2f pct) have reads in region' % (have_peak, num_barcodes, have_peak/num_barcodes))
-	print('Total of %d reads' % num_reads)
 
 # get coordinates from input gene name 
-def get_coords_from_gene_name(gene, species, radius):
+def get_coords_from_gene_name(gene, species, radius=None):
 
 	# species = 'mus musculus'
 	try:
@@ -255,6 +239,11 @@ def get_coords_from_gene_name(gene, species, radius):
 	chrom = 'chr'+gene['seq_region_name']
 	start = min([gene['start'], gene['end']])
 	stop = max([gene['start'], gene['end']])
+
+	if radius: 
+		temp_start = start - radius
+		if temp_start >= 0: start = temp_start
+		stop = stop + radius
 
 	return (chrom, start, stop)
 
@@ -313,7 +302,8 @@ def main():
 	col_inds = copy.deepcopy(barcodes)
 	col_inds.append('peak_ind')
 	col_inds.append('gene')
-	gene_peaks = pd.DataFrame(columns=col_inds)
+	gene_peaks = pd.DataFrame(columns=['peak_id', 'gene'])
+	gene_peaks.set_index(['peak_id', 'gene'], inplace=True)
 	for c, sr, sp in zip(chrom, start, stop):
 		print()
 		if args.genes:
@@ -327,7 +317,10 @@ def main():
 	counts_df = find_peak_counts(
 		args.counts_mat, gene_peaks, barcodes, args.test)
 	counts_df.to_csv(make_ofile_name(args.counts_mat, '_genes'))
-	disp_peak_deets(counts_df)
+	if counts_df.isnull().sum().sum() > 0:
+		print('Missing %d values ' % counts_df.isnum().sum().sum())
+		print('Missing some values :/')
+	peak_deets(counts_df, 'both')
 	# print end time
 
 	print()
