@@ -332,7 +332,7 @@ def main():
 	counts_df = find_peak_counts(
 		args.counts_mat, gene_peaks, barcodes, args.test)
 
-	counts_df.to_csv(make_ofile_name(args.counts_mat, '_genes'))
+	counts_df.to_csv(make_ofile_name(args.counts_mat, 'genes'))
 
 	# are we missing any values?
 	if counts_df.isnull().sum().sum() > 0:
