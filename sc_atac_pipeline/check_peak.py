@@ -34,6 +34,9 @@ def get_args():
 		'default 5kb', default=5000)
 	parser.add_argument("--test", dest="test", default=False, action='store_true',
 		help = "only run on 5 barcodes so you can validate performance")
+	parser.add_argument("--oprefix", '--o', dest='oprefix', type=str,
+		help='prefix to add to output file. do not put path in this',
+		default=None)
 
 	args = parser.parse_args()
 
@@ -53,8 +56,11 @@ def get_args():
 
 	return args
 
-def make_ofile_name(matfile, gene):
+def make_ofile_name(matfile, gene, prefix=None):
 	fname = matfile.split('.csv')[0]
+	if prefix:
+		fname += '_'
+		fname += prefix
 	fname += '_'
 	fname += gene
 	fname += '.csv'
@@ -65,7 +71,11 @@ def get_gene_names(genes):
 
 	if ',' in genes:
 		genes = genes.split(',')
-	return genes
+
+	if isinstance(genes, list):
+		return genes
+	else:
+		return [genes]
 
 # take the single peak index of df and split it into chrom, start, stop
 def coord_ind_to_multiind(df):
@@ -290,6 +300,9 @@ def main():
 		else:
 			(chrom, start, stop) = get_coords_from_gene_name(
 				genes, args.species, args.radius)
+			chrom = [chrom]
+			start = [start]
+			stop = [stop]
 	else: 
 		(chrom,loc) = args.coords.split(':')
 		(start,stop) = loc.split('-')
@@ -332,7 +345,7 @@ def main():
 	counts_df = find_peak_counts(
 		args.counts_mat, gene_peaks, barcodes, args.test)
 
-	counts_df.to_csv(make_ofile_name(args.counts_mat, 'genes'))
+	counts_df.to_csv(make_ofile_name(args.counts_mat, 'genes', args.oprefix))
 
 	# are we missing any values?
 	if counts_df.isnull().sum().sum() > 0:
