@@ -20,10 +20,15 @@ def get_args():
 	desc = 'Provides information about peaks in a given region from counts mat'
 	parser = argparse.ArgumentParser(description=desc)
 
-	parser.add_argument('--coords', '--c', dest='coords',
-		help='coords to look for peak in format chr1:1-100')
-	parser.add_argument('--genes', '--g', dest='genes',
-		help='comma separated gene names to look for peaks in.')
+	# parser.add_argument('--coords', '--c', dest='coords',
+	# 	help='coords to look for peak in format chr1:1-100')
+	# parser.add_argument('--genes', '--g', dest='genes',
+	# 	help='comma separated gene names to look for peaks in.')
+	parser.add_argument('-gc', '--genes_coords', dest='genes',
+		help='multiline file of comma separated list of genes and/or '+
+		'coordinates to look for. optional <label=cell_type> can be '+
+		'be put at the end of line. end format will look like '+
+		'gene1,gene2,label=myoblast<newline>gene3,gene4,label=myotube')
 	parser.add_argument('-matrix', '-m', dest='counts_mat',
 		help='counts matrix to look in')
 	parser.add_argument('--species', '--s', dest='species',
@@ -39,20 +44,6 @@ def get_args():
 		default=None)
 
 	args = parser.parse_args()
-
-	# check for argument concordance
-	if not args.coords and not args.genes:
-		sys.exit('Missing coordinates --coords or gene name --genes')
-	elif args.coords and args.genes:
-		sys.exit('Please use only --coords or --genes, not both')
-
-	# if using gene-related things, is --genes used?
-	if args.species and not args.genes:
-		sys.exit('--species requires --genes input')
-	if args.radius and not args.genes and args.coords:
-		args.radius = None
-	if args.radius and not args.genes:
-		sys.exit('--radius requires --genes input')
 
 	return args
 
@@ -77,6 +68,39 @@ def get_gene_names(genes):
 	else:
 		return [genes]
 
+# given an input file of format
+# gene1,gene2,gene3,label=MT
+# or
+# chr1:123-456,chr2:789-101
+# parse and extract genes to list and labelled dictionary
+def get_gene_names_file(fname): 
+
+	genes_df = pd.DataFrame(columns=['label', 'gene'])
+	with open(fname, 'r') as infile:
+		for i, line in enumerate(infile):
+
+			# get the group label for each input group of genes
+			# and the genes
+			try:
+				genes = line.strip().split(',')
+				group_label = line.strip().split('label=')[-1]
+				genes = genes[:-1]
+			except:
+				group_label = i
+
+			# add this line's genes to df 
+			g_df = pd.DataFrame(columns=['label', 'gene'])
+			g_df['gene'] = genes
+			g_df['label'] = group_label
+			genes_df = genes_df.append(g_df)
+
+
+			# # add to dictionary
+			# labelled_genes[group_label]	= genes	
+
+	# return labelled_genes, genes
+	return genes_df
+
 # take the single peak index of df and split it into chrom, start, stop
 def coord_ind_to_multiind(df):
 
@@ -86,20 +110,8 @@ def coord_ind_to_multiind(df):
 		lambda x: int(x.peak_ind.split(':')[1].split('-')[0]), axis=1)
 	df['stop'] = df.apply(
 		lambda x: int(x.peak_ind.split(':')[1].split('-')[1]), axis=1)
-	# df.drop(columns='peak_ind', inplace=True)
-	# df.set_index(['chrom', 'start', 'stop'], inplace=True)
 
 	return df
-
-# def coord_ind_to_coord_tuple(coord):
-# 	chrom = coord.split(':')[0]
-# 	start = coord.split(':')[1].split('-')[0]
-# 	stop = coord.split(':')[1].split('-')[1]
-
-# 	return (chrom, start, stop)
-
-# def coord_tuple_to_coord_ind(chrom, start, stop):
-# 	return chrom+':'+str(start)+'-'+str(stop)
 
 # get the peak coordinates from the counts matrix
 def get_peaks(counts_mat):
@@ -118,6 +130,226 @@ def get_barcodes(counts_mat, test):
 		col_inds = col_inds[:5]
 
 	return col_inds
+
+# display details about reads found w/i each region
+# TODO make this work with just an input region as well ie 
+# remove 'gene' dependencies
+def peak_deets(counts_df):
+
+
+	# testing
+	# print(counts_df)
+	# print(counts_df.index)
+
+	# get rid of peak indices
+	num_barcodes = len(counts_df.columns)
+	counts_df.reset_index(level='peak_ind', drop=True, inplace=True) 
+	counts_df.reset_index(inplace=True)
+
+	# # testing
+	# print(counts_df)
+	# print(counts_df.index)
+	
+	# group by gene name and sum to get counts ∀ cell
+	counts_df = counts_df.groupby(['gene', 'label']).sum()
+	# counts_df.reset_index(level='label')
+
+	# # testing
+	# print(counts_df)
+	# print(counts_df.index)
+
+	# deets_df
+	deets_df = pd.DataFrame(columns=['label', 'num_reads', 'percent_positive'])
+
+	# display details for reads in each gene's candidate region
+	temp = counts_df.reset_index(level='label', drop=True)
+	deets_df = gene_peak_deets(temp, deets_df)
+
+
+	# print(counts_df)
+
+	# display details for reads in each labelled set of genes
+	temp = counts_df.groupby(level='label').sum()
+	temp.reset_index(level='label', inplace=True)
+	temp.sort_values('label', inplace=True)
+	# print(temp)
+	# print(temp)
+	for label in temp.label.unique():
+		print('Read details for label {0} '.format(label))
+		label_df = temp.loc[temp.label == label]
+		label_df.set_index('label', inplace=True)
+		# print(label_df)
+		deets_df = disp_peak_deets(label_df, label, deets_df)
+
+	return deets_df
+
+# details about read counts for each gene
+def gene_peak_deets(df, deets_df):
+
+	# loop through each gene
+	for g in df.index:
+		print('Read details for %s region' % g)
+		g_df = df.loc[[g]]
+		deets_df = disp_peak_deets(g_df, g, deets_df)	
+
+	return deets_df
+
+# details about read counts for entire list of candidate regions
+def disp_peak_deets(df, label, deets_df):
+
+	# print(df)
+	# print(df.values)
+	
+	num_cells = len(df.columns)
+
+	# number of cells with reads and number of reads for each cell
+	have_peak = np.count_nonzero(df.values)
+	num_reads = df.values.sum()
+
+	print('%d out of %d cells (%2f pct) have reads in region' % (have_peak, num_cells, (have_peak/num_cells)*100))
+	print('Total of %s reads' % num_reads)
+	print()
+
+	temp = pd.DataFrame(data=[[label, num_reads, (have_peak/num_cells)*100]],
+		columns=['label', 'num_reads', 'percent_positive'])
+
+	deets_df = deets_df.append(temp)
+	return deets_df
+
+
+
+
+# # get coordinates from input gene name 
+# def get_coords_from_gene_name(gene, species, radius=None):
+
+# 	# species = 'mus musculus'
+# 	try:
+# 		gene = ensembl_rest.symbol_lookup(species=species,
+# 		symbol=gene)
+# 	except:
+# 		sys.exit('Something went wrong with ENSEMBL gene name query')
+
+# 	# radius + whole gene body
+# 	chrom = 'chr'+gene['seq_region_name']
+# 	start = min([gene['start'], gene['end']])
+# 	stop = max([gene['start'], gene['end']])
+# 	if radius: 
+# 		temp_start = start - radius
+# 		if temp_start >= 0: start = temp_start
+# 		stop = stop + radius
+
+# 	# # radius + TSS
+# 	# chrom = 'chr'+gene['seq_region_name']
+# 	# start = gene['start']
+# 	# if radius:
+# 	# 	stop = start+radiuss
+# 	# 	start = start-radius
+
+
+	# return (chrom, start, stop)
+
+def get_coords(x, args):
+
+	g = x.gene 
+	if '-' in g and ':' in g: 
+			(chrom,loc) = g.split(':')
+			(start,stop) = loc.split('-')
+			(start,stop) = (int(start),int(stop))
+	# gene name
+	else:
+		try:
+			gene = ensembl_rest.symbol_lookup(species=args.species,
+				symbol=g)
+		except:
+			sys.exit('Something went wrong with ENSEMBL gene name query')
+
+		# radius + TSS
+		chrom = 'chr'+gene['seq_region_name']
+		temp1 = gene['start'] - 5000 
+		temp2 = gene['start'] + 5000
+		start = min(temp1, temp2)
+		stop = max(temp1, temp2)
+
+		# # testing
+		# print(g)
+		# print('start: {}'.format(gene['start']))
+		# print('region start: {}'.format(start))
+		# print('region end: {}'.format(stop))
+
+		# # radius + whole gene body
+		# chrom = 'chr'+gene['seq_region_name']
+		# start = min([gene['start'], gene['end']])
+		# stop = max([gene['start'], gene['end']])
+		# if args.radius: 
+		# 	temp_start = start - args.radius
+		# 	if temp_start >= 0: start = temp_start
+		# 	stop = stop + args.radius
+
+		# # testing
+		# print('new start: {}'.format(start))
+		# print('new stop: {}'.format(stop))
+
+
+	return pd.Series([chrom, start, stop])
+ 
+def get_coords_df(genes_df, args):
+
+	new_cols = genes_df.apply(get_coords, args=(args,), axis=1)
+	new_cols.columns = ['chrom', 'start', 'stop']
+
+	# make a new dataframe 
+	genes_df['chrom'] = new_cols['chrom']
+	genes_df['start'] = new_cols['start']
+	genes_df['stop'] = new_cols['stop']
+
+	return genes_df
+
+def find_relevant_peaks_df(x, peaks):
+
+	peak_ind = x.chrom+':'+str(x.start)+'-'+str(x.stop)
+
+	print('Finding peaks for {0} in region {1}'.format(x.gene, peak_ind))
+
+	region_peaks = pd.DataFrame(columns=['label', 'gene', 'peak_ind'])
+
+	# filter for relevant chromosome
+	peaks = peaks.loc[peaks.chrom == x.chrom]
+
+	# filter for locations
+	start_peaks = peaks[peaks.start.between(x.start, x.stop)]
+	stop_peaks = peaks[peaks.stop.between(x.start, x.stop)]
+	peaks = start_peaks.merge(stop_peaks)
+
+	# add gene and label
+	peaks['gene'] = x.gene
+	peaks['label'] = x.label
+
+	# remove chrom, start, stop
+	peaks.drop(['chrom', 'start', 'stop'], inplace=True, axis=1)
+
+	# are there even any peaks?
+	if peaks.empty:
+		print('    No peaks found in this input region')
+		return peaks
+
+	# print(peaks)
+
+	return peaks
+
+def find_relevant_peaks(genes_df, peaks):
+
+	# init df
+	region_peaks = pd.DataFrame(columns=['label', 'gene', 'peak_ind'])
+	region_peaks.set_index(['label', 'gene', 'peak_ind'], inplace=True)
+
+	# get peak ids of relevant peaks
+	temp = genes_df.apply(find_relevant_peaks_df, args=(peaks,), axis=1)
+
+	# concatenate all the series returned from apply
+	for i, s in temp.iteritems():
+		region_peaks = region_peaks.append(s)
+
+	return region_peaks
 
 # get the peaks that lie within the input region
 def find_peaks_in_region(chrom, start, stop, peaks, gene_peaks, gene=None):
@@ -162,15 +394,15 @@ def find_peaks_in_region(chrom, start, stop, peaks, gene_peaks, gene=None):
 	return peaks 
 
 # get the peak counts from counts matrix and add to our df 
-def find_peak_counts(counts_mat, peaks, barcodes, test):
+def get_peak_counts(counts_mat, region_peaks, barcodes, test):
 
 	# get peaks in list form
-	peak_list = peaks['peak_ind'].values.tolist()
+	peak_list = region_peaks['peak_ind'].values.tolist()
 
 	# counts for each peak of interest in region
 	col_ind = barcodes
 	counts_df = pd.DataFrame(
-		index=[peaks.peak_ind, peaks.gene], columns=col_ind)
+		index=[region_peaks.peak_ind, region_peaks.gene, region_peaks.label], columns=col_ind)
 
 	# read in the counts matrix one line at a time
 	with open(counts_mat, 'r') as infile:
@@ -190,171 +422,58 @@ def find_peak_counts(counts_mat, peaks, barcodes, test):
 
 	return counts_df
 
-# display details about reads found w/i each region
-# TODO make this work with just an input region as well ie 
-# remove 'gene' dependencies
-def peak_deets(counts_df, any_gene=False):
-
-	# get rid of peak indices
-	num_barcodes = len(counts_df.columns)
-	counts_df.reset_index(level=0, drop=True, inplace=True) 
-	counts_df.reset_index(inplace=True)
-
-	# # testing
-	# print(counts_df)
-	# print(counts_df.index)
-	
-	# group by gene name and sum to get counts ∀ cell
-	counts_df = counts_df.groupby('gene').sum()
-
-	# # testing
-	# print(counts_df)
-	# print(counts_df.index)
-
-	# display details for reads in any candidate region
-	if not any_gene or any_gene == 'both':
-		gene_peak_deets(counts_df)
-
-	# display details for reads in each gene's candidate region
-	if any_gene or any_gene == 'both':
-		print('Read details for any candidate region')
-		counts_df['temp'] = 0
-		counts_df = counts_df.groupby(['temp']).sum()
-		counts_df.reset_index(level='temp', drop=True, inplace=True)
-		disp_peak_deets(counts_df)
-
-# details about read counts for each gene
-def gene_peak_deets(df):
-
-	# loop through each gene
-	for g in df.index:
-		print('Read details for %s region' % g)
-		g_df = df.loc[[g]]
-		disp_peak_deets(g_df)	
-
-# details about read counts for entire list of candidate regions
-def disp_peak_deets(df):
-	
-	num_cells = len(df.columns)
-
-	# number of cells with reads and number of reads for each cell
-	have_peak = np.count_nonzero(df.values)
-	num_reads = df.values.sum()
-
-	print('%d out of %d cells (%2f pct) have reads in region' % (have_peak, num_cells, (have_peak/num_cells)*100))
-	print('Total of %s reads' % num_reads)
-	print()
-
-
-# get coordinates from input gene name 
-def get_coords_from_gene_name(gene, species, radius=None):
-
-	# species = 'mus musculus'
-	try:
-		gene = ensembl_rest.symbol_lookup(species=species,
-		symbol=gene)
-	except:
-		sys.exit('Something went wrong with ENSEMBL gene name query')
-
-	# radius + whole gene body
-	# chrom = 'chr'+gene['seq_region_name']
-	# start = min([gene['start'], gene['end']])
-	# stop = max([gene['start'], gene['end']])
-	# if radius: 
-	# 	temp_start = start - radius
-	# 	if temp_start >= 0: start = temp_start
-	# 	stop = stop + radius
-
-	# radius + TSS
-	chrom = 'chr'+gene['seq_region_name']
-	start = gene['start']
-	if radius:
-		start = start-radius
-		stop = start+radius
-
-
-	return (chrom, start, stop)
-
 def main():
 
 	# time execution
 	start_time = time.time()
 
+	# input args
 	args = get_args()
-
-	if args.genes:
-		genes = get_gene_names(args.genes)
-		if isinstance(genes, list):
-			chroms = []
-			starts = []
-			stops = []
-			for g in genes:
-				(chrom, start, stop) = get_coords_from_gene_name(
-					g, args.species, args.radius)
-				chroms.append(chrom)
-				starts.append(start)
-				stops.append(stop)
-			chrom = chroms
-			start = starts
-			stop = stops
-		else:
-			(chrom, start, stop) = get_coords_from_gene_name(
-				genes, args.species, args.radius)
-			chrom = [chrom]
-			start = [start]
-			stop = [stop]
-	else: 
-		(chrom,loc) = args.coords.split(':')
-		(start,stop) = loc.split('-')
-		(start,stop) = (int(start),int(stop))
+	genes = args.genes
+	counts_mat = args.counts_mat
+	oprefix = args.oprefix
 
 	# some output for the user to look at
 	print()
 	try:
-		print('Experiment '+ args.counts_mat.split('/')[-1].split('_')[0])
+		print('Experiment '+ counts_mat.split('/')[-1].split('_')[0])
 	except:
-		print('Experiment '+ args.counts_mat.split('_')[0])
+		print('Experiment '+ counts_mat.split('_')[0])
 	print('------------------------------------')
 
+	# get genes/coords
+	genes_df = get_gene_names_file(genes)
+	genes_df = get_coords_df(genes_df, args)
+	# print(genes_df)
+
 	# get the peaks 
-	peaks = get_peaks(args.counts_mat)
+	peaks = get_peaks(counts_mat)
+	# print(peaks)
 	peaks = coord_ind_to_multiind(peaks)
 	print('%d peaks' % len(peaks.index))
 
 	# get the barcodes/cells
-	barcodes = get_barcodes(args.counts_mat, args.test)
+	barcodes = get_barcodes(counts_mat, args.test)
 	print('%d barcodes' % len(barcodes))
 
-	# set up some variables we'll be updating while looping
-	i = 0 # index into args.genes
-	gene_peaks = pd.DataFrame(columns=['peak_id', 'gene'])
-	gene_peaks.set_index(['peak_id', 'gene'], inplace=True)
+	# get the peaks associated with each target region
+	region_peaks = find_relevant_peaks(genes_df, peaks)
 
-	# loop through each gene
-	for c, sr, sp in zip(chrom, start, stop):
-		print()
-		if args.genes:
-			print('Looking for peaks in gene: %s ' % genes[i])
-		print('Region: %s %d-%d' % (c, sr, sp))
+	# get the counts for each relevant region
+	counts_df = get_peak_counts(
+		counts_mat, region_peaks, barcodes, args.test)
+	# print(counts_df)
 
-		# find peaks that lie within each region
-		gene_peaks = find_peaks_in_region(c, sr, sp, peaks, gene_peaks, genes[i])
-		i += 1
+	# save counts info 
+	counts_df.to_csv(
+		make_ofile_name(counts_mat, 'region_peaks', oprefix))
 
-	# get the counts for each peak for each cell from the counts mat
-	counts_df = find_peak_counts(
-		args.counts_mat, gene_peaks, barcodes, args.test)
+	# display details
+	print()
+	summary_df = peak_deets(counts_df)
+	summary_df.to_csv(
+		make_ofile_name(counts_mat, 'region_summary', oprefix), index=False)
 
-	counts_df.to_csv(make_ofile_name(args.counts_mat, 'genes', args.oprefix))
-
-	# are we missing any values?
-	if counts_df.isnull().sum().sum() > 0:
-		print('Missing %d values ' % counts_df.isnum().sum().sum())
-		print('Missing some values :/')
-
-	# print details
-	peak_deets(counts_df, 'both')
-	
 	# print end time
 	print()
 	print("--- %s seconds ---" % (time.time() - start_time))
