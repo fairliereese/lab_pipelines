@@ -91,6 +91,9 @@ def get_barcodes(barcode_file, exp, test):
 		exps = [exp for i in range(len(barcodes[:5]))]
 		ind = ['_'.join([exp, b]) for b in barcodes[:5]]
 		barcodes = barcodes[:5]
+	else: 
+		exps = [exp for i in range(len(barcodes))]
+		ind = ['_'.join([exp,b]) for b in barcodes]
 
 	df = pd.DataFrame(index=ind)
 	df['barcode'] = pd.Series(barcodes).values
