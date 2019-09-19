@@ -30,17 +30,24 @@ reformat_peak_id <- function(peak_id){
 	return(peak_id)
 }
 
-mb1_atac <- get_atac_peaks('MB1/MB1_full_counts.csv')
-mb2_atac <- get_atac_peaks('MB2/MB2_full_counts.csv')
-mt1_atac <- get_atac_peaks('MT1/MT1_full_counts.csv')
-mt2_atac <- get_atac_peaks('MT2/MT2_full_counts.csv')
+# # load all data
+# mb1_atac <- get_atac_peaks('MB1_full_counts.csv')
+# mb2_atac <- get_atac_peaks('MB2_full_counts.csv')
+# mt1_atac <- get_atac_peaks('MT1_full_counts.csv')
+# mt2_atac <- get_atac_peaks('MT2_full_counts.csv')
 
-# "expression" matrix
-exprs <- Merge(mb1_atac, mb2_atac, by='peak_id')
-exprs <- Merge(exprs, mt1_atac, by='peak_id')
-exprs <- Merge(exprs, mt2_atac, by='peak_id')
+# # "expression" matrix
+# exprs <- Merge(mb1_atac, mb2_atac, by='peak_id')
+# exprs <- Merge(exprs, mt1_atac, by='peak_id')
+# exprs <- Merge(exprs, mt2_atac, by='peak_id')
+
+# testing
+mb1_atac <- get_atac_peaks('MB1_full_counts.csv')
+exprs <- mb1_atac
+
 exprs <- transform(
-	exprs, peak_id2=reformat_peak_id('peak_id'))
+	exprs, peak_id2=reformat_peak_id(rownames(exprs)))
+exprs <- column_to_rownames(as.matrix(exprs), 'peak_id2')
 
 # feature data
 peak_names <- rownames(exprs)
@@ -51,7 +58,7 @@ feature_data <- column_to_rownames(as.matrix(feature_data), 'peak_names')
 
 # remove peak id from columns
 # exprs <- column_to_rownames()
-exprs <- subset(exprs, select=-c(peak_id2))
+# exprs <- subset(exprs, select=-c(peak_id2))
 
 # sample sheet 
 cell_names <- colnames(exprs)
