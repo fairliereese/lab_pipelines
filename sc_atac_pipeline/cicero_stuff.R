@@ -68,7 +68,7 @@ main <- function() {
 
 	# run cicero
 	print('Running Cicero...')
-	genome <- read.table(args$genome_sizes) 
+	genome <- read.table(args$genome_sizes, header=T) 
 	genome$V2 <- sapply(genome$V2, as.character)
 	genome$V2 <- sapply(genome$V2, as.numeric)
 	conns <- run_cicero(cicero_cds, genome) 
@@ -151,15 +151,15 @@ load_packages <- function() {
 parse_arguments <- function() {
 
 	option_list <- list(
-		make_option(c('-counts_mat', action='store', dest='exprs',
-					help='counts matrix for one sample')),
-		make_option(c('-genome_sizes'), action='store', dest='genome_sizes',
+		make_option('--counts_mat', action='store', dest='exprs',
+					help='counts matrix for one sample (CSV)'),
+		make_option('--genome_sizes', action='store', dest='genome_sizes',
 					help='tab-delimited genome size file for organism'),
-		make_option(c('-gtf'), action='store', dest='gtffile', 
+		make_option('--gtf', action='store', dest='gtffile', 
 					help='GENCODE gtf annotation for organism'),
-		make_option(c('-o'), action='store', dest='odir',
+		make_option('--o', action='store', dest='odir',
 					help='output directory to store gene activity matrix in'),
-		make_option(c('-sample'), action='store', dest='sample_name',
+		make_option('--sample', action='store', dest='sample_name',
 					help='sample name, to be used to save output')
 
 	)
