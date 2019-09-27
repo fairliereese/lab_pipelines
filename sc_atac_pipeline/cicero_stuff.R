@@ -117,6 +117,9 @@ main <- function() {
 
 
 	# save files
+	activity_fname <- paste0(args$odir, '/', args$sample_name, '_cicero_conns.rds')
+	saveRDS(conns, activity_fname)
+
 	activity_fname <- paste0(args$odir, '/', args$sample_name, '_cicero_activity.rds')
 	saveRDS(unnorm_ga, activity_fname)
 
