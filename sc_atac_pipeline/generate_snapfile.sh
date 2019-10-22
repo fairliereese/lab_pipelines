@@ -2,6 +2,8 @@
 bam=$1
 prefix=${bam%.bam}
 mm10_sizes=/home/freese/mortazavi_lab/ref/mm10/mm10.chrom.sizes
+echo $bam
+echo $mm10_sizes
 
 snaptools snap-pre  \
 	--input-file=${bam}  \
