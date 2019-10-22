@@ -39,7 +39,7 @@ def get_snapfile(snapfile):
 	return f
 
 def main():
-	args = get_args
+	args = get_args()
 	snapfile = args.snapfile
 	binsize = args.bin
 
