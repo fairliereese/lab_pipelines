@@ -3,7 +3,6 @@ bam=$1
 prefix=${bam%.bam}
 echo $bam
 echo $prefix
-exit
 
 # extract the header file
 samtools view ${bam} -H > ${prefix}.header.sam
