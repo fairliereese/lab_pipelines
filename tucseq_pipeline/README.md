@@ -11,7 +11,7 @@ cd sam2pairwise/src/
 make
 ```
 
-Copy the `sam2pairwise` script that is somewhere in your bash $PATH variable.
+Copy the `sam2pairwise` script to a directory in your bash $PATH variable.
 
 ## Find substitutions
 
