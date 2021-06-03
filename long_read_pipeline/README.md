@@ -119,3 +119,168 @@ minimap2 \
     $sam 2> \
     $log
 ```
+
+## TranscriptClean
+Correct common long-read sequencing artifacts. Meant to be run on the cluster.
+
+Download TranscriptClean from here: https://github.com/mortazavilab/TranscriptClean, and use the path where you downloaded it to as `tc_path` in the following block.
+
+```bash
+n=`wc -l samples.txt | cut -d' ' -f1`
+sbatch --array=1-${n} tc.sh samples.txt <genome>
+```
+
+The code in `tc.sh` is also reproduced below.
+```bash
+module load samtools
+
+# input arguments
+samples=$1
+tc_path=$2
+
+# get the name of the sample
+i=$SLURM_ARRAY_TASK_ID
+p=`head -${i} $samples | tail -1`
+
+# input and output filenames
+sam=${p}_mapped.sam
+bam=${p}_mapped.bam
+sort_bam=${p}_sorted.bam
+sort_sam=${p}_sorted.sam
+
+# first sort the sam file
+samtools view -Sb $sam > $bam
+samtools sort $bam > $sort_bam
+samtols view -h $sort_bam > $sort_sam
+
+# run TranscriptClean
+python ${tc_path}/TranscriptClean.py \
+   --sam $sort_sam \
+   --genome $genome \
+   -t 16 \
+   --canonOnly \
+   --deleteTmp \
+   --outprefix $p
+```
+
+## TALON
+
+TALON is designed to annotate long reads to their transcripts of origin, as well as identify novel transcripts.
+
+Download and install TALON according to the instructions on the TALON repository: https://github.com/mortazavilab/TALON
+
+### TALON label reads
+
+Before running TALON, we have to determine what the nucleotide composition of the end of each read is, which will help us filter for internal priming.
+
+```bash
+n=`wc -l samples.txt | cut -d' ' -f1`
+sbatch --array=1-${n} talon_label_reads.sh samples.txt <genome>
+```
+
+The code in `talon_label_reads.sh` is also reproduced below.
+```bash
+# input arguments
+samples=$1
+genome=$2
+
+# get the name of the sample
+i=$SLURM_ARRAY_TASK_ID
+p=`head -${i} $samples | tail -1`
+
+sam=${p}_clean.sam
+talon_label_reads \
+    --f $sam \
+    --g $genome \
+    --t 16 \
+    --ar 20  \
+    --deleteTmp  \
+    --o $p
+```
+
+### Create a TALON config file
+
+Create a comma-separated file that provides the sample name, sample description, platform, and location of each input sam file. There's not a great way to automate this but the code for my example is shown below. It uses the output `*_labeled.sam` files from the previous steps.
+
+```bash
+touch talon_config.csv
+printf "pgp1_1,pgp1,SequelI,pgp1_1_labeled.sam\n" >> talon_config.csv
+printf "pgp1_2,pgp1,SequelI,pgp1_2_labeled.sam\n" >> talon_config.csv
+printf "excite_neuron_1,excitatory_neuron,SequelI,excite_neuron_1_labeled.sam\n" >> talon_config.csv
+printf "excite_neuron_2,excitatory_neuron,SequelI,excite_neuron_2_labeled.sam\n" >> talon_config.csv
+printf "astro_1,astrocyte,SequelII,astro_1_labeled.sam\n" >> talon_config.csv
+printf "astro_2,astrocyte,SequelII,astro_2_labeled.sam\n" >> talon_config.csv
+```
+
+### Initialize TALON db and run TALON
+
+```bash
+sbatch talon.sh talon_config.csv <annotation.gtf> <annotation_name> <genome_name>
+```
+
+The code in `talon.sh` is also reproduced below.
+```bash
+config=$1
+
+annot=$2
+annot_name=$3
+
+genome_name=$4
+
+p_dir=talon/
+mkdir -p ${p_dir}
+talon_initialize_database \
+    --f $annot \
+    --g $annot_name \
+    --a $genome_name \
+    --l 0 \
+    --idprefix ENCODEH \
+    --5p 500 \
+    --3p 300 \
+    --o ${p_dir}pgp1
+
+talon \
+    --f $config \
+    --db ${p_dir}pgp1.db \
+    --build $genome_name \
+    --t 64 \
+    --o ${p_dir}pgp1
+```
+
+### Filter TALON transcripts
+
+Filter novel transcripts for internal priming and for reproducibility. Look at TALON documentation for specifics on arguments.
+
+```bash
+db=pgp1.db
+talon_filter_transcripts \
+    --db $db \
+    -a <annot_name> \
+    --maxFracA=0.5 \
+    --minCount=5 \
+    --minDatasets=2 \
+    --o pgp1_pass_list.csv
+```
+
+### Create an unfiltered and a filtered abundance file
+
+#### Unfiltered
+```bash
+db=pgp1.db
+talon_abundance \
+    --db $db \
+    -a <annot_name> \
+    -b <genome_name> \
+    --o pgp1
+```
+
+#### Filtered
+```bash
+db=pgp1.db
+talon_abundance \
+    --db $db \
+    -a <annot_name> \
+    -b <genome_name> \
+    --whitelist pgp1_pass_list.csv \
+    --o pgp1
+```
