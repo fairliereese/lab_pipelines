@@ -114,6 +114,7 @@ minimap2 \
     -ax splice:hq \
     -uf \
     --MD \
+    --secondary=no \
     $genome \
     $fastq > \
     $sam 2> \
