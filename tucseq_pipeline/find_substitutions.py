@@ -50,7 +50,11 @@ def main():
             ref_seq = line.strip()
 
             # if there is a mismatch of some sort in this read and it's uniquely mapped
-            if ' ' in match_seq and int(header[4]) < 256:
+            if ' ' in match_seq and int(header[1]) < 256:
+
+                # # test
+                # if header[0] == 'NS500169:856:HCY2TBGXJ:3:22612:26077:9353':
+                #     print('Got here with flag {}'.format(header[1]))
 
                 # get the locations in the reference and read where the mismatches are
                 inds = [m.span()[0] for m in re.finditer('[\ ]', match_seq)]
@@ -74,7 +78,12 @@ def main():
     mm_df = pd.read_csv(mismatch_file, sep='\t')
     mm_df['mismatch'] = mm_df.ref_nt+mm_df.seq_nt
     mm_df.drop(['ref_nt', 'seq_nt'], axis=1, inplace=True)
+
+    # drop duplicate mismatches, just keep the first one we found
+    mm_df.drop_duplicates(inplace=True)
+    # mm_df = mm_df.drop_duplicates(subset='read_name')
     mm_df = mm_df.groupby(by=['read_name', 'mismatch']).count().reset_index()
+
     mm_df.rename({'ind': 'count'}, axis=1, inplace=True)
     mm_df = mm_df.pivot(index='read_name', columns='mismatch', values='count')
     mm_df.fillna(0, inplace=True)
