@@ -19,8 +19,8 @@ p_dir=talon/
 mkdir -p ${p_dir}
 talon_initialize_database \
     --f $annot \
-    --g $annot_name \
-    --a $genome_name \
+    --g $genome_name \
+    --a $annot_name \
     --l 0 \
     --idprefix ENCODEH \
     --5p 500 \
