@@ -24,12 +24,12 @@ You will want the FASTQs that have been converted to FLNC (full-length non-chime
 
 **Example:** The data for PB103 is located here: `/share/crsp/lab/seyedam/share/PACBIO/PB103/Classify/D26_isoseq_flnc.fastq`. The data for PB305 is located here: `/share/crsp/lab/seyedam/share/PACBIO/PB305/Refine/B01/flnc.fastq`.
 
-If you're going to use this data, I recommend **symlinking** the FASTQ files that you're going to use in a new directory, which creates a reference to the file but does not copy the underlying data. You can do this with the following command
+If you're going to use this data, I recommend copying the FASTQ files that you're going to use in a new directory.
 
 ```bash
 mkdir my_analysis_folder/
 cd my_analysis_folder
-ln -s /share/crsp/lab/seyedam/share/PACBIO/PB103/Classify/D26_isoseq_flnc.fastq pgp1_1.fastq
+cp /share/crsp/lab/seyedam/share/PACBIO/PB103/Classify/D26_isoseq_flnc.fastq pgp1_1.fastq
 ```
 
 ### Where can I find the data on the ENCODE portal?
