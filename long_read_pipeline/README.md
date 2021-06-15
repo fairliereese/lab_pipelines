@@ -128,7 +128,7 @@ Download TranscriptClean from here: https://github.com/mortazavilab/TranscriptCl
 
 ```bash
 n=`wc -l samples.txt | cut -d' ' -f1`
-sbatch --array=1-${n} tc.sh samples.txt <genome>
+sbatch --array=1-${n} tc.sh samples.txt <genome> <tc_path>
 ```
 
 The code in `tc.sh` is also reproduced below.
@@ -137,7 +137,8 @@ module load samtools
 
 # input arguments
 samples=$1
-tc_path=$2
+genome=$2
+tc_path=$3
 
 # get the name of the sample
 i=$SLURM_ARRAY_TASK_ID

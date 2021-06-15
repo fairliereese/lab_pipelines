@@ -12,7 +12,8 @@ module load samtools
 
 # input arguments
 samples=$1
-tc_path=$2
+genome=$2
+tc_path=$3
 
 # get the name of the sample
 i=$SLURM_ARRAY_TASK_ID
