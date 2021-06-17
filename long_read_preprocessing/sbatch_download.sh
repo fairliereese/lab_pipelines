@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=dl_pb
 #SBATCH -A SEYEDAM_LAB
-#SBATCH -o dl_files/%x.o%A_%a
-#SBATCH -e dl_files/%x.e%A_%a
+#SBATCH -o processing_tables/%x.o%A_%a
+#SBATCH -e processing_tables/%x.e%A_%a
 #SBATCH --partition=standard
 #SBATCH --time=24:00:00
 #SBATCH --mail-type=START,END

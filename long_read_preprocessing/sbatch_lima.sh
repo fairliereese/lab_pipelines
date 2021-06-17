@@ -50,10 +50,10 @@ do
     --min-signal-increase 10 \
     --min-score-lead 0
 
-    # because lima names the files weird, rename it
-    mv ${data_dir}/fl.primer_5p--primer_3p.bam ${data_dir}/fl.bam
+  # because lima names the files weird, rename it
+  mv ${data_dir}/fl.primer_5p--primer_3p.bam ${data_dir}/fl.bam
 
-    echo "Finished Lima for $pb_id, $name"
-    n_reads=`samtools view -c ${data_dir}/fl.bam`
-    echo "$n_reads after Lima"
+  echo "Finished Lima for $pb_id, $name"
+  n_reads=`samtools view -c ${data_dir}/fl.bam`
+  echo "$n_reads after Lima"
 done

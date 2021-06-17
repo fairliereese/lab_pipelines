@@ -11,6 +11,7 @@
 #SBATCH --mail-user=freese@uci.edu
 
 module load bioconda/4.8.3
+module load samtools
 
 set -x
 set -e
@@ -44,5 +45,9 @@ do
     --min-passes=3 \
     --min-rq=0.9 \
     --min-snr=2.5 \
-    --report-file ${data_dir}/ccs_report.txt $subreads ccs.bam
+    --report-file ${data_dir}/ccs_report.txt $subreads ${data_dir}/ccs.bam
+
+    echo "Finished CCS for $pb_id, $name"
+    n_reads=`samtools view -c ${data_dir}/ccs.bam`
+    echo "$n_reads after CCS"
 done
