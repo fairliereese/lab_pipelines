@@ -246,7 +246,7 @@ talon \
     --db ${opref}.db \
     --build $genome_name \
     --t 64 \
-    --o $${opref}
+    --o ${opref}
 ```
 
 ### Filter TALON transcripts
