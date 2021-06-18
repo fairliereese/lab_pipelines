@@ -15,8 +15,8 @@ annot_name=$3
 
 genome_name=$4
 
-p_dir=talon/
-mkdir -p ${p_dir}
+opref=$5
+
 talon_initialize_database \
     --f $annot \
     --g $genome_name \
@@ -25,11 +25,11 @@ talon_initialize_database \
     --idprefix ENCODEH \
     --5p 500 \
     --3p 300 \
-    --o ${p_dir}pgp1
+    --o ${opref}
 
 talon \
     --f $config \
-    --db ${p_dir}pgp1.db \
+    --db ${opref}.db \
     --build $genome_name \
     --t 64 \
-    --o ${p_dir}pgp1
+    --o $${opref}
