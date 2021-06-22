@@ -218,7 +218,7 @@ printf "astro_2,astrocyte,SequelII,astro_2_labeled.sam\n" >> talon_config.csv
 ### Initialize TALON db and run TALON
 
 ```bash
-sbatch talon.sh talon_config.csv <annotation.gtf> <annotation_name> <genome_name>
+sbatch talon.sh talon_config.csv <annotation.gtf> <annotation_name> <genome_name> <output file prefix>
 ```
 
 The code in `talon.sh` is also reproduced below.
@@ -230,8 +230,8 @@ annot_name=$3
 
 genome_name=$4
 
-p_dir=talon/
-mkdir -p ${p_dir}
+opref=$5
+
 talon_initialize_database \
     --f $annot \
     --g $genome_name \
@@ -240,14 +240,14 @@ talon_initialize_database \
     --idprefix ENCODEH \
     --5p 500 \
     --3p 300 \
-    --o ${p_dir}pgp1
+    --o ${opref}
 
 talon \
     --f $config \
-    --db ${p_dir}pgp1.db \
+    --db ${opref}.db \
     --build $genome_name \
     --t 64 \
-    --o ${p_dir}pgp1
+    --o ${opref}
 ```
 
 ### Filter TALON transcripts
