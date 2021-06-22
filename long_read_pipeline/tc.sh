@@ -36,5 +36,6 @@ python ${tc_path}/TranscriptClean.py \
    --genome $genome \
    -t 16 \
    --canonOnly \
+   --tmp_dir ${p}_tmp \
    --deleteTmp \
    --outprefix $p
