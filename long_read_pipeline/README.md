@@ -175,10 +175,11 @@ python ${tc_path}/TranscriptClean.py \
    --genome $genome \
    -t 16 \
    --canonOnly \
-   --tmp_dir ${p}_tmp \
+   --tmpDir ${p}_tmp \
    --deleteTmp \
    --outprefix $p
 ```
+rm -r ${p}_tmp/
 
 Count the number of reads that passed TranscriptClean
 
