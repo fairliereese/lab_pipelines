@@ -28,9 +28,10 @@ sort_sam=${p}_sorted.sam
 # first sort the sam file
 samtools view -Sb $sam > $bam
 samtools sort $bam > $sort_bam
-samtols view -h $sort_bam > $sort_sam
+samtools view -h $sort_bam > $sort_sam
 
 # run TranscriptClean
+mkdir -p ${p}_tmp/
 python ${tc_path}/TranscriptClean.py \
    --sam $sort_sam \
    --genome $genome \
