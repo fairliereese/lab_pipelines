@@ -121,6 +121,19 @@ minimap2 \
     $log
 ```
 
+Count the number of reads that were mapped
+
+```bash
+n_total=0
+while read sample
+do
+  f=${sample}_mapped.sam
+  n_curr=`samtools view -c $f`
+  n_total=$((n_total + n_curr))
+done < samples.txt
+echo "$n_total reads after Minimap2"
+```
+
 ## TranscriptClean
 Correct common long-read sequencing artifacts. Meant to be run on the cluster.
 
@@ -164,6 +177,19 @@ python ${tc_path}/TranscriptClean.py \
    --tmp_dir ${p}_tmp \
    --deleteTmp \
    --outprefix $p
+```
+
+Count the number of reads that passed TranscriptClean
+
+```bash
+n_total=0
+while read sample
+do
+  f=${sample}_clean.sam
+  n_curr=`samtools view -c $f`
+  n_total=$((n_total + n_curr))
+done < samples.txt
+echo "$n_total reads after TranscriptClean"
 ```
 
 ## TALON
@@ -248,6 +274,13 @@ talon \
     --build $genome_name \
     --t 64 \
     --o ${opref}
+```
+
+Count the number of reads that passed TALON
+
+```bash
+n_total=`wc -l <talon.db>`
+echo "$n_total reads after TALON"
 ```
 
 ### Filter TALON transcripts
