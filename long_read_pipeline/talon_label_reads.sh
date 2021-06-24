@@ -1,9 +1,8 @@
 #!/bin/sh
 #SBATCH -A SEYEDAM_LAB
-#SBATCH --cpus-per-task 16
 #SBATCH --output=talon_label.out
 #SBATCH --error=talon_label.err
-#SBATCH --time=06:00:00
+#SBATCH --time=10:00:00
 #SBATCH -J talon_label
 #SBATCH --mail-type=START,END
 #SBATCH --partition=standard
@@ -20,7 +19,7 @@ sam=${p}_clean.sam
 talon_label_reads \
     --f $sam \
     --g $genome \
-    --t 16 \
+    --tmpDir ${p}_tmp/ \
     --ar 20  \
     --deleteTmp  \
     --o $p

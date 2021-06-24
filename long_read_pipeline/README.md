@@ -223,7 +223,7 @@ sam=${p}_clean.sam
 talon_label_reads \
     --f $sam \
     --g $genome \
-    --t 16 \
+    --tmpDir ${p}_tmp/ \
     --ar 20  \
     --deleteTmp  \
     --o $p
