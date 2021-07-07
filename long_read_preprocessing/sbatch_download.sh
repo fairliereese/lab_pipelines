@@ -19,10 +19,11 @@ i=$SLURM_ARRAY_TASK_ID
 pb_id=`head -${i} $ifile | tail -1 | cut -f1`
 link=`head -${i} $ifile | tail -1 | cut -f2`
 md5sum=`head -${i} $ifile | tail -1 | cut -f3`
+smrt_cell=`head -${i} $ifile | tail -1 | cut -f4`
 
 # make directories and download
-mkdir -p ~/pacbio/$pb_id/A01_data/
-cd ~/pacbio/$pb_id/A01_data/
+mkdir -p ~/pacbio/${pb_id}/${smrt_cell}01_data/
+cd ~/pacbio/$pb_id/${smrt_cell}01_data/
 wget $link
 
 # check md5sum

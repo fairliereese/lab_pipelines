@@ -4,7 +4,7 @@
 
 Should be tab-separated and contain the following information:
 
-| Library ID (PB###) | Download link from GHTF | md5sum from GHTF |
+| Library ID (PB###) | Download link from GHTF | md5sum from GHTF | SMRT cell ID |
 
 Save this in samples.tsv.
 
