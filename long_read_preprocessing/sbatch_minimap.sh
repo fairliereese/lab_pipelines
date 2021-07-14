@@ -22,8 +22,12 @@ organism=$2 # human or mouse
 
 if [ "${organism}" == "human" ]; then
 	genome=~/mortazavi_lab/ref/hg38/hg38.fa
+elif [ "${organism}" == "human_sirv3" ]; then
+	genome=~/mortazavi_lab/ref/hg38/hg38_sirv3.fasta
 elif [ "${organism}" == "mouse" ]; then
 	genome=~/mortazavi_lab/ref/mm10/mm10.fa
+elif [ "${organism}" == "mouse_sirv4" ]; then
+	genome=~/mortazavi_lab/ref/mm10/mm10_sirv4.fasta
 fi
 
 # extract PBID
@@ -52,7 +56,7 @@ do
     -uf \
     --MD \
     --secondary=no \
-    ${genome}~/PACBIO/Sequel2_scripts/mm10_SIRV_ERCC_set4.fasta \
+    ${genome} \
     ${fastq} \
     > ${data_dir}/mapped_flnc.sam \
     2> ${data_dir}/mapped_flnc.log

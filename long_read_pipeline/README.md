@@ -178,8 +178,9 @@ python ${tc_path}/TranscriptClean.py \
    --tmpDir ${p}_tmp \
    --deleteTmp \
    --outprefix $p
+
+   rm -r ${p}_tmp/
 ```
-rm -r ${p}_tmp/
 
 Count the number of reads that passed TranscriptClean
 
