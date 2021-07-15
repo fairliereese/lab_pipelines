@@ -10,7 +10,8 @@
 #SBATCH --mem=64G
 #SBATCH --mail-user=freese@uci.edu
 
-module load bioconda/4.8.3
+# module load bioconda/4.8.3
+conda activate pacbio
 module load samtools
 
 set -x
