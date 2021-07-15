@@ -11,6 +11,7 @@
 #SBATCH --mail-user=freese@uci.edu
 
 # module load bioconda/4.8.3
+source ~/.bash_profile
 conda activate pacbio
 module load samtools
 
