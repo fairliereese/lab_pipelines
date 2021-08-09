@@ -28,3 +28,13 @@ python ${d}make_submission_spreadsheets.py \
   -o ${fastq_dir}adrenal \
   -lib_meta=${d}adrenal_metadata.tsv
 ```
+
+Submit files
+
+```bash
+# first submit to test
+sbatch submit_dev.sh /share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/adrenal
+
+# then submit to prod
+sbatch submit_prod.sh /share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/adrenal
+```
