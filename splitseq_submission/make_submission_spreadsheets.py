@@ -215,7 +215,7 @@ def main():
 
     # biosample
     fname = opref+'_biosample.tsv'
-    biosample_sub.to_csv(fname, index=False, sep='\t')
+    biosamp_sub.to_csv(fname, index=False, sep='\t')
 
     # experiment
     fname = opref+'_experiment.tsv'
