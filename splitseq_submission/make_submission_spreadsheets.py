@@ -215,23 +215,23 @@ def main():
 
     # biosample
     fname = opref+'_biosample.tsv'
-    biosample.to_csv(fname, index=False, sep='\t')
+    biosample_sub.to_csv(fname, index=False, sep='\t')
 
     # experiment
     fname = opref+'_experiment.tsv'
-    exp.to_csv(fname, index=False, sep='\t')
+    exp_sub.to_csv(fname, index=False, sep='\t')
 
     # library
     fname = opref+'_library.tsv'
-    lib.to_csv(fname, index=False, sep='\t')
+    lib_sub.to_csv(fname, index=False, sep='\t')
 
     # replicate
     fname = opref+'_rep.tsv'
-    rep.to_csv(fname, index=False, sep='\t')
+    rep_sub.to_csv(fname, index=False, sep='\t')
 
     # file
     fname = opref+'_file.tsv'
-    file.to_csv(fname, index=False, sep='\t')
+    file_sub.to_csv(fname, index=False, sep='\t')
 
 if __name__ == '__main__':
     main()
