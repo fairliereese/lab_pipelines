@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -A SEYEDAM_LAB
-#SBATCH -o submit_files.o%A
-#SBATCH -e submit_files.e%A
+#SBATCH -o submit_dev.o%A
+#SBATCH -e submit_dev.e%A
 #SBATCH --time=48:00:00
 #SBATCH --job-name submit_files
 #SBATCH --partition=standard
