@@ -1,0 +1,2 @@
+aliases	dataset	submitted_file_name	replicate	file_format	output_type	platform	read_length	run_type
+ali-mortazavi:fastq_sr_P10_female_adrenal_2	ali-mortazavi:exp_sr_P10_female_adrenal	/Users/fairliereese/Documents/programming/mortazavi_lab/bin/lab_pipelines/splitseq_submission/test/A_10_F_2.fastq.gz	ali-mortazavi:rep_sr_P10_female_adrenal_2	fastq	reads	encode:NextSeq2000	115	single-ended

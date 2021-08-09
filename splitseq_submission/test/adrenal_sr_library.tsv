@@ -1,0 +1,2 @@
+aliases	biosample	nucleic_acid_term_name	documents	construction_method	nucleic_acid_starting_quantity	nucleic_acid_starting_quantity_units	strand_specificity	lab	award
+ali-mortazavi:library_sr_P10_female_adrenal_2	ali-mortazavi:biosample_P10_female_adrenal_2	RNA	ali-mortazavi:Split-seq_computational_protocol_v1.0,ali-mortazavi:split-seq-v1	Parse Single Cell Whole Transcriptome Kit	1562	cells	unstranded	ali-mortazavi	UM1HG009443

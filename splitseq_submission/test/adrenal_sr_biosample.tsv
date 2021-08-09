@@ -1,0 +1,2 @@
+tissue_desc	biosample_ontology	organism	subcellular_fraction_term_name	donor	source	sex	model_organism_age	model_organism_age_units	age_desc	rep_desc	rep	date_obtained	description	aliases	lab	award
+adrenal	/biosample-types/tissue_UBERON_0002369/	/organisms/mouse/	nucleus	encode:Castaneus	/sources/jackson-labs/	female	10	day	P10	8	2	7/8/21	B6Cast F1 P10 female adrenal 8	ali-mortazavi:biosample_P10_female_adrenal_2	ali-mortazavi	UM1HG009443
