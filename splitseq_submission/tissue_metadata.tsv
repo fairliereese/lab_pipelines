@@ -1,0 +1,5 @@
+short	tissue_desc	biosample_ontology	organism	subcellular_fraction_term_name	donor	source
+A	adrenal	/biosample-types/tissue_UBERON_0002369/	/organisms/mouse/	nucleus	encode:Castaneus	/sources/jackson-labs/
+G	gastrocnemius	/biosample-types/tissue_UBERON_0001388/	/organisms/mouse/	nucleus	encode:Castaneus	/sources/jackson-labs/
+C	cortex	/biosample-types/tissue_NTR_0000646/	/organisms/mouse/	nucleus	encode:Castaneus	/sources/jackson-labs/
+H	hippocampus	/biosample-types/tissue_UBERON_0002305/	/organisms/mouse/	nucleus	encode:Castaneus	/sources/jackson-labs/
