@@ -18,7 +18,7 @@ fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/
 python ${d}make_submission_spreadsheets.py \
   -d ${fastq_dir} \
   -o ${fastq_dir}adrenal \
-  -lib_meta=${fastq_dir}adrenal_metadata.tsv
+  -lib_meta=${d}adrenal_metadata.tsv
 
 # local
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
@@ -33,8 +33,9 @@ Submit files
 
 ```bash
 # first submit to test
-sbatch submit_dev.sh /share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/adrenal
+d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
+sbatch ${d}submit_dev.sh /share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/adrenal_sr
 
 # then submit to prod
-sbatch submit_prod.sh /share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/adrenal
+sbatch ${d}submit_prod.sh /share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/adrenal_sr
 ```

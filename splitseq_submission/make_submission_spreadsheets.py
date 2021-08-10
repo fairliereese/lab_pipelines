@@ -78,9 +78,9 @@ def main():
 
         # add biosample
         biosample = temp.copy(deep=True)
-        desc = 'B6Cast F1 {} {} {} {}'.format(temp.age_desc.values[0], temp.sex.values[0],
+        desc = 'B6Cast F1 {} {} {} {}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                               temp.tissue_desc.values[0], temp.rep_desc.values[0])
-        biosamp_alias = 'ali-mortazavi:biosample_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+        biosamp_alias = 'ali-mortazavi:biosample_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
         biosample['date_obtained'] = lib_meta.loc[lib_meta['Sample ID'] == sample_id, 'Date shipped'].values[0]
         biosample['description'] = desc
@@ -93,14 +93,14 @@ def main():
         # add experiment
         exp = temp.copy(deep=True)
         if long == False:
-            desc = 'Short-read Split-seq B6Cast F1 {} {} {}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            desc = 'Short-read Split-seq B6Cast F1 {} {} {}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                   temp.tissue_desc.values[0])
-            exp_alias = 'ali-mortazavi:exp_sr_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            exp_alias = 'ali-mortazavi:exp_sr_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                          temp.tissue_desc.values[0])
         else:
-            desc = 'Long-read Split-seq B6Cast F1 {} {} {}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            desc = 'Long-read Split-seq B6Cast F1 {} {} {}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                   temp.tissue_desc.values[0])
-            exp_alias = 'ali-mortazavi:exp_lr_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            exp_alias = 'ali-mortazavi:exp_lr_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                  temp.tissue_desc.values[0])
 
 
@@ -120,12 +120,12 @@ def main():
         lib = temp.copy(deep=True)
 
         if long == False:
-            lib_alias = 'ali-mortazavi:library_sr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            lib_alias = 'ali-mortazavi:library_sr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                                  temp.tissue_desc.values[0], temp.rep.values[0])
             lib['documents'] = 'ali-mortazavi:Split-seq_computational_protocol_v1.0,ali-mortazavi:split-seq-v1'
             lib['strand_specificity'] = 'unstranded'
         else:
-            lib_alias = 'ali-mortazavi:library_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            lib_alias = 'ali-mortazavi:library_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                          temp.tissue_desc.values[0], temp.rep.values[0])
             lib['documents'] = 'ali-mortazavi:LR-Split-seq_computational_protocol_v1.0,ali-mortazavi:split-seq-v1,ali-mortazavi:pacbio-split-seq-v1'
             lib['strand_specificity'] = 'forward'
@@ -152,10 +152,10 @@ def main():
         rep = temp.copy(deep=True)
 
         if long == False:
-            rep_alias = 'ali-mortazavi:rep_sr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            rep_alias = 'ali-mortazavi:rep_sr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
         else:
-            rep_alias = 'ali-mortazavi:rep_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            rep_alias = 'ali-mortazavi:rep_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
 
         rep['aliases'] = rep_alias
@@ -173,14 +173,14 @@ def main():
         file = temp.copy(deep=True)
 
         if long == False:
-            file_alias = 'ali-mortazavi:fastq_sr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            file_alias = 'ali-mortazavi:fastq_sr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
             file['read_length'] = 115
             file['run_type'] = 'single-ended'
             file['platform'] = 'encode:NextSeq2000'
 
         else:
-            file_alias = 'ali-mortazavi:fastq_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.sex.values[0],
+            file_alias = 'ali-mortazavi:fastq_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
             file['platform'] = 'encode:PacBio_sequel_II'
 
@@ -201,7 +201,7 @@ def main():
 
 
     # drop unnecessary columns
-    drop = ['tissue_desc', 'age_desc', 'rep_desc']
+    drop = ['tissue_desc', 'age_desc', 'rep_desc', 'rep']
     biosamp_sub.drop(drop, axis=1, inplace=True)
 
     # for exp, also drop duplicate aliases

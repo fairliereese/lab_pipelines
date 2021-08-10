@@ -6,6 +6,8 @@
 #SBATCH --job-name submit_files
 #SBATCH --partition=standard
 
+set -e 
+
 # use the following to submit files to the production server from a tsv
 
 source ~/.bash_profile
