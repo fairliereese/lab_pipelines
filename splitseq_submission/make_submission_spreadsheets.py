@@ -190,9 +190,11 @@ def main():
         file['replicate'] = rep_alias
         file['file_format'] = 'fastq'
         file['output_type'] = 'reads'
+        file['lab'] = lab
+        file['award'] = award
 
         cols = ['aliases', 'dataset', 'submitted_file_name',
-                'replicate', 'file_format', 'output_type', 'platform']
+                'replicate', 'file_format', 'output_type', 'platform', 'lab', 'award']
         if long == False:
             cols.append('read_length')
             cols.append('run_type')
