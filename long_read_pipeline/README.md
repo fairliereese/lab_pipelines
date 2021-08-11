@@ -282,7 +282,7 @@ talon \
 Count the number of reads that passed TALON
 
 ```bash
-n_total=`wc -l <talon.db>`
+n_total=`wc -l <talon read annot tsv>`
 echo "$n_total reads after TALON"
 ```
 
