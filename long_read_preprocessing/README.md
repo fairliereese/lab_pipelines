@@ -61,3 +61,16 @@ cat processing_tables/refine.o*
 mv processing_tables/refine.o* processing_tables/processing_output/
 mv processing_tables/refine.e* processing_tables/processing_output/
 ```
+
+## 4. Minimap
+Map long reads to the reference genome. For mapping reference, choose from
+* "human" (hg38)
+* "human_sirv3" (hg38 + sirv3)
+* "human_sirv4" (hg38 + sirv4)
+* "mouse" (mm10)
+* "mouse_sirv4" (mm10 + sirv4)
+	genome=~/mortazavi_lab/ref/hg38/hg38.fa
+
+```bash
+bash minimap.sh samples.tsv <mapping reference>
+```
