@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=minimap
+#SBATCH --job-name=n50
 #SBATCH -n 32
 #SBATCH -A SEYEDAM_LAB
 #SBATCH -o processing_tables/%x.o%A_%a
