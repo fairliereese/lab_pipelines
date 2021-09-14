@@ -5,7 +5,7 @@
 #SBATCH -o processing_tables/%x.o%A_%a
 #SBATCH -e processing_tables/%x.e%A_%a
 #SBATCH --partition=standard
-#SBATCH --time=7-0
+#SBATCH --time=1-0
 #SBATCH --mail-type=START,END
 #SBATCH --mem=64G
 #SBATCH --mail-user=freese@uci.edu
@@ -41,7 +41,7 @@ name=$(basename "$dir" | cut -f1 -d"_")
 data_dir=${lima_dir}${smrt_cell}01/
 mkdir -p $data_dir
 
-adapters=splitseq_adapters.fasta
+adapters=~/mortazavi_lab/bin/lab_pipelines/lr_splitseq_pipeline/splitseq_adapters.fasta
 
 lima \
     ${bam} \
