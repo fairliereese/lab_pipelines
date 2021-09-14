@@ -24,6 +24,7 @@ ifile=$1
 # extract PBID
 i=$SLURM_ARRAY_TASK_ID
 pb_id=`head -${i} $ifile | tail -1 | cut -f1`
+smrt_cell=`head -${i} $ifile | tail -1 | cut -f4`
 
 # make directories
 pb_dir=~/pacbio/$pb_id/
@@ -33,23 +34,24 @@ mkdir -p $ccs_dir
 cd $ccs_dir
 
 # get subreads for each data directory and run CCS
-for dir in ${pb_dir}/*_data
-do
-  files=($dir/*subreads.bam)
-  subreads=${files[0]}
-  name=$(basename "$dir" | cut -f1 -d"_")
-  data_dir=${ccs_dir}${name}
-  mkdir -p $data_dir
+dir=${pb_dir}/${smrt_cell}01_data
+# for dir in ${pb_dir}/*_data
+# do
+files=($dir/*subreads.bam)
+subreads=${files[0]}
+name=$(basename "$dir" | cut -f1 -d"_")
+data_dir=${ccs_dir}${smrt_cell}01/
+mkdir -p $data_dir
 
-  ccs \
-    --skip-polish \
-    --min-length=10 \
-    --min-passes=3 \
-    --min-rq=0.9 \
-    --min-snr=2.5 \
-    --report-file ${data_dir}/ccs_report.txt $subreads ${data_dir}/ccs.bam
+ccs \
+  --skip-polish \
+  --min-length=10 \
+  --min-passes=3 \
+  --min-rq=0.9 \
+  --min-snr=2.5 \
+  --report-file ${data_dir}/ccs_report.txt $subreads ${data_dir}/ccs.bam
 
-    echo "Finished CCS for $pb_id, $name"
-    n_reads=`samtools view -c ${data_dir}/ccs.bam`
-    echo "$n_reads after CCS"
-done
+echo "Finished CCS for $pb_id, $name"
+n_reads=`samtools view -c ${data_dir}/ccs.bam`
+echo "$n_reads after CCS"
+# done

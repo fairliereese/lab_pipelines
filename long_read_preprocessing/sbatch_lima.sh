@@ -22,6 +22,7 @@ ifile=$1
 # extract PBID
 i=$SLURM_ARRAY_TASK_ID
 pb_id=`head -${i} $ifile | tail -1 | cut -f1`
+smrt_cell=`head -${i} $ifile | tail -1 | cut -f4`
 
 # make directories
 pb_dir=~/pacbio/$pb_id/
@@ -31,29 +32,32 @@ mkdir -p $lima_dir
 cd $lima_dir
 
 # get ccs reads for each data directory and run Lima
-for dir in ${pb_dir}CCS/*01/
-do
-  files=($dir/ccs.bam)
-  bam=${files[0]}
-  name=$(basename "$dir" | cut -f1 -d"_")
-  data_dir=${lima_dir}${name}
-  mkdir -p $data_dir
+# for dir in ${pb_dir}CCS/*01/
+# do
+dir=${pb_dir}CCS/${smrt_cell}01/
+files=($dir/ccs.bam)
+bam=${files[0]}
+name=$(basename "$dir" | cut -f1 -d"_")
+data_dir=${lima_dir}${smrt_cell}01/
+mkdir -p $data_dir
 
-  lima \
-    ${bam} \
-    /share/crsp/lab/seyedam/share/PACBIO/scripts/June2021/PB_adapters.fasta \
-    ${data_dir}/fl.bam \
-    --isoseq \
-    --num-threads 32 \
-    --min-score 0 \
-    --min-end-score 0 \
-    --min-signal-increase 10 \
-    --min-score-lead 0
+lima \
+  ${bam} \
+  /share/crsp/lab/seyedam/share/PACBIO/scripts/June2021/PB_adapters.fasta \
+  ${data_dir}/fl.bam \
+  --isoseq \
+  --num-threads 32 \
+  --min-score 0 \
+  --min-end-score 0 \
+  --min-signal-increase 10 \
+  --min-score-lead 0
 
-  # because lima names the files weird, rename it
-  mv ${data_dir}/fl.primer_5p--primer_3p.bam ${data_dir}/fl.bam
+module unload bioconda/4.8.3
 
-  echo "Finished Lima for $pb_id, $name"
-  n_reads=`samtools view -c ${data_dir}/fl.bam`
-  echo "$n_reads after Lima"
-done
+# because lima names the files weird, rename it
+mv ${data_dir}/fl.primer_5p--primer_3p.bam ${data_dir}/fl.bam
+
+echo "Finished Lima for $pb_id, $name"
+n_reads=`samtools view -c ${data_dir}/fl.bam`
+echo "$n_reads after Lima"
+# done

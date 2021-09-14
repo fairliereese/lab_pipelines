@@ -74,3 +74,5 @@ Map long reads to the reference genome. For mapping reference, choose from
 ```bash
 bash minimap.sh samples.tsv <mapping reference>
 ```
+
+## 5. N50 calculation

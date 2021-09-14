@@ -11,3 +11,7 @@ samtools view ${bam} -H > ${prefix}.header.sam
 cat <( cat ${prefix}.header.sam ) \
 <( samtools view ${bam} | awk '{for (i=12; i<=NF; ++i) { if ($i ~ "^RG:Z:"){ td[substr($i,1,2)] = substr($i,6,length($i)-5); } }; printf "%s:%s\n", td["RG"], $0 }' ) \
 | samtools view -bS - > ${prefix}.snap.bam
+
+# sort 
+samtools sort -n -@ 10 -m 1G ${prefix}.snap.bam -o ${prefix}.snap.nsrt.bam
+

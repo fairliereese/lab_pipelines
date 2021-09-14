@@ -22,6 +22,7 @@ ifile=$1
 # extract PBID
 i=$SLURM_ARRAY_TASK_ID
 pb_id=`head -${i} $ifile | tail -1 | cut -f1`
+smrt_cell=`head -${i} $ifile | tail -1 | cut -f4`
 
 # make directories
 pb_dir=~/pacbio/$pb_id/
@@ -31,25 +32,26 @@ mkdir -p $refine_dir
 cd $refine_dir
 
 # get fl post-Lima reads for each data directory and run Lima
-for dir in ${pb_dir}Lima/*01/
-do
-  files=($dir/fl.bam)
-  bam=${files[0]}
-  name=$(basename "$dir" | cut -f1 -d"_")
-  data_dir=${refine_dir}${name}
-  mkdir -p $data_dir
+# for dir in ${pb_dir}Lima/*01/
+# do
+dir=${pb_dir}Lima/${smrt_cell}01/
+files=($dir/fl.bam)
+bam=${files[0]}
+name=$(basename "$dir" | cut -f1 -d"_")
+data_dir=${refine_dir}${smrt_cell}01/
+mkdir -p $data_dir
 
-  isoseq3 refine \
-    ${bam}  \
-    /share/crsp/lab/seyedam/share/PACBIO/scripts/June2021/PB_adapters.fasta\
-    ${data_dir}/flnc.bam \
-    --num-threads 32 \
-    --require-polya
+isoseq3 refine \
+  ${bam}  \
+  /share/crsp/lab/seyedam/share/PACBIO/scripts/June2021/PB_adapters.fasta\
+  ${data_dir}/flnc.bam \
+  --num-threads 32 \
+  --require-polya
 
-  # create fastq as well
-  samtools bam2fq ${data_dir}/flnc.bam > ${data_dir}/flnc.fastq
+# create fastq as well
+samtools bam2fq ${data_dir}/flnc.bam > ${data_dir}/flnc.fastq
 
-  echo "Finished Refine for $pb_id, $name"
-  n_reads=`samtools view -c ${data_dir}/flnc.bam`
-  echo "$n_reads after Refine"
-done
+echo "Finished Refine for $pb_id, $name"
+n_reads=`samtools view -c ${data_dir}/flnc.bam`
+echo "$n_reads after Refine"
+#done

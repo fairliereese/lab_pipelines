@@ -24,10 +24,17 @@ pb_id=`head -${i} $ifile | tail -1 | cut -f1`
 smrt_cell=`head -${i} $ifile | tail -1 | cut -f4`
 
 # get flnc post-Minimap reads for each data directory
+pb_dir=~/pacbio/$pb_id/
 dir=${pb_dir}Minimap/${smrt_cell}01/
 files=($dir/mapped_flnc.sam)
 sam=${files[0]}
 
-bash calc_n50.sh \
-  $sam \
-  $pb_id
+module load samtools
+
+samtools view -hF 256 $sam | awk '{print length($10)}' > ${pb_id}_read_lengths.txt
+
+python ~/pacbio/scripts/June2021/calc_n50.py \
+  --f ${pb_id}_read_lengths.txt \
+  --id ${pb_id}
+
+rm ${pb_id}_read_lengths.txt
