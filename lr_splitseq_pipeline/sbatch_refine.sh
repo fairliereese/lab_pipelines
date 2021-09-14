@@ -41,7 +41,7 @@ name=$(basename "$dir" | cut -f1 -d"_")
 data_dir=${refine_dir}${smrt_cell}01/
 mkdir -p $data_dir
 
-adapters=splitseq_adapters.fasta
+adapters=~/mortazavi_lab/bin/lab_pipelines/lr_splitseq_pipeline/splitseq_adapters.fasta
 
 isoseq3 refine \
     ${bam} \
