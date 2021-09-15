@@ -39,3 +39,13 @@ Run Refine with the Split-seq adapters and without the poly-A tail requirement.
 ```bash
 bash refine.sh samples.tsv
 ```
+## 4. Concatenate fastqs
+```bash
+opref=<output directory + prefix>
+bash concat_fastqs.sh samples.tsv $opref
+```
+
+## 4. Demultiplex Split-seq barcodes
+```bash
+bash demultiplex.sh $opref
+```
