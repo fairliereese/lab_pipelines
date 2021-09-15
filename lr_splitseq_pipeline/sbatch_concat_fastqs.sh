@@ -5,7 +5,7 @@
 #SBATCH -o processing_tables/%x.o%A_%a
 #SBATCH -e processing_tables/%x.e%A_%a
 #SBATCH --partition=standard
-#SBATCH --time=7-0
+#SBATCH --time=4:00:00
 #SBATCH --mail-type=START,END
 #SBATCH --mem=64G
 #SBATCH --mail-user=freese@uci.edu
@@ -14,12 +14,16 @@
 ifile=$1
 opref=$2
 
+ofile=${opref}.fastq
+touch ${ofile}
+echo "" > ${ofile}
+
 while read sample
 do
   # extract PBID
   i=$SLURM_ARRAY_TASK_ID
-  pb_id=`cut -f1 ${sample}`
-  smrt_cell=`cut -f4 ${sample}`
+  pb_id=`echo $sample | cut -f1 -d' '`
+  smrt_cell=`echo $sample | cut -f4 -d' '`
 
   # make directories
   pb_dir=~/pacbio/$pb_id/
@@ -28,5 +32,5 @@ do
   dir=${pb_dir}Refine/${smrt_cell}01/
   files=($dir/flnc.fastq)
   fastq=${files[0]}
-  echo $fastq
+  cat ${fastq} >> ${ofile}
 done < ${ifile}
