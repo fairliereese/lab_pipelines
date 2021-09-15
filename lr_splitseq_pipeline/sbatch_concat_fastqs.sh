@@ -15,6 +15,7 @@ ifile=$1
 opref=$2
 
 while read sample
+do
   # extract PBID
   i=$SLURM_ARRAY_TASK_ID
   pb_id=`cut -f1 ${sample}`
