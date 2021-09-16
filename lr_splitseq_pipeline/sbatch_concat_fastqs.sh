@@ -15,8 +15,8 @@ ifile=$1
 opref=$2
 
 ofile=${opref}.fastq
+rm $ofile
 touch ${ofile}
-echo "" > ${ofile}
 
 while read sample
 do
