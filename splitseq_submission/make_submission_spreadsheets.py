@@ -34,7 +34,7 @@ def get_sample_id(f):
     return s
 
 def main():
-    cwd = os.path.dirname(sys.argv[0])
+    cwd = os.path.dirname(__file__)
     args = get_args()
     d = args.dir
     long = args.long
@@ -143,6 +143,9 @@ def main():
                                                          temp.tissue_desc.values[0], temp.rep.values[0])
             lib['documents'] = 'ali-mortazavi:LR-Split-seq_computational_protocol_v1.0,ali-mortazavi:split-seq-v1,ali-mortazavi:pacbio-split-seq-v1'
             lib['strand_specificity'] = 'forward'
+
+        if lib_type:
+            lib_alias += '_{}'.format(lib_type)
 
         lib['aliases'] = lib_alias
         lib['biosample'] = biosamp_alias
