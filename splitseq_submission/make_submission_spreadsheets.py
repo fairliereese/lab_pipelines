@@ -40,7 +40,7 @@ def main():
     long = args.long
     if args.deep:
         lib_type = 'deep'
-    elif args.deep:
+    elif args.shallow:
         lib_type = 'shallow'
     else:
         lib_type = None
