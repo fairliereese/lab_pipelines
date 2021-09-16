@@ -1,16 +1,17 @@
 ```bash
-sample='cortex_deep'
-fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/cortex/fastq/deep/
+sample='heart_shallow'
+fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/heart/fastq/shallow/
 cd ${fastq_dir}
 mkdir submission
 cd submission
-ln -s ../C_*fastq.gz .
+ln -s ../H_*fastq.gz .
 ```
 
 File name format <tissue>_<age>_<sex>_<replicate>
 * A = adrenal
 * G = gastroc
-* H = hippocampus
+* H = heart
+* HC = hippocampus
 * C = cortex
 
 ```bash
