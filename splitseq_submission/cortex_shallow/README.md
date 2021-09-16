@@ -31,7 +31,7 @@ fastq_dir=/Users/fairliereese/Documents/programming/mortazavi_lab/bin/lab_pipeli
 python ${d}make_submission_spreadsheets.py \
   -d ${fastq_dir} \
   -o ${fastq_dir}/test \
-  --shallow \
+  --deep \
   -lib_meta=${meta_dir}/adrenal_metadata.tsv
 ```
 
