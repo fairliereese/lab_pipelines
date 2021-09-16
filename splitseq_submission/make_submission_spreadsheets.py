@@ -14,6 +14,10 @@ def get_args():
         help='path to library metadata from google doc') # https://docs.google.com/spreadsheets/d/1r8mA9f5PMzWgSax7mSsH0r_mQGBCYnrs9SrgY6t2jKY/edit#gid=0
     parser.add_argument('--long', dest='long', action='store_true',
         help='long read experiment')
+    parser.add_argument('--deep', dest='deep', action='store_true',
+        help='deep sequencing experiment')
+    parser.add_argument('--shallow', dest='shallow', action='store_true',
+        help='shallow sequencing experiment')
 
     args = parser.parse_args()
     return args
@@ -34,6 +38,13 @@ def main():
     args = get_args()
     d = args.dir
     long = args.long
+    if args.deep:
+        lib_type = 'deep'
+    elif args.deep:
+        lib_type = 'shallow'
+    else:
+        lib_type = None
+        raise Exception('Either --deep or --shallow required')
     lib_meta = args.lib_meta
     opref = args.opref
 
@@ -103,6 +114,9 @@ def main():
             exp_alias = 'ali-mortazavi:exp_lr_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                  temp.tissue_desc.values[0])
 
+        if lib_type:
+            desc += ' {}'.format(lib_type)
+            exp_alias += '_{}'.format(lib_type)
 
         exp['assay_term_name'] = 'single-cell RNA sequencing assay'
         exp['description'] = desc
@@ -158,6 +172,9 @@ def main():
             rep_alias = 'ali-mortazavi:rep_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
 
+        if lib_type:
+            rep_alias += '_{}'.format(lib_type)
+
         rep['aliases'] = rep_alias
         rep['library'] = lib_alias
         rep['experiment'] = exp_alias
@@ -183,6 +200,9 @@ def main():
             file_alias = 'ali-mortazavi:fastq_lr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
             file['platform'] = 'encode:PacBio_sequel_II'
+
+        if lib_type:
+            file_alias += '_{}'.format(lib_type)
 
         file['aliases'] = file_alias
         file['dataset'] = exp_alias
