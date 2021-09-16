@@ -20,7 +20,7 @@ biosamp=$2
 # 0 = do not submit biosample
 if [ $biosamp -eq 1 ]
 then
-  eu_register.py -m dev -p biosample -w -i ${opref}_biosample.tsv
+  eu_register.py -m prod -p biosample -w -i ${opref}_biosample.tsv
 fi
 
 eu_register.py -m prod -p experiment -w -i ${opref}_experiment.tsv
