@@ -1,5 +1,5 @@
 ```bash
-sample='cortex_shallow'
+sample='cortex_deep'
 fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/cortex/fastq/shallow/
 cd ${fastq_dir}
 mkdir submission
@@ -21,7 +21,7 @@ fastq_dir=${fastq_dir}/submission/
 python ${d}make_submission_spreadsheets.py \
   -d ${fastq_dir} \
   -o ${fastq_dir}${sample} \
-  --shallow \
+  --deep \
   -lib_meta=${meta_dir}/${sample}_metadata.tsv
 ```
 
