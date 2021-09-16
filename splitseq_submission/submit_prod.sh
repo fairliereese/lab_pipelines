@@ -18,7 +18,7 @@ biosamp=$2
 
 # 1 = submit biosample
 # 0 = do not submit biosample
-if [$biosamp -eq 0]
+if [ $biosamp -eq 1 ]
 then
   eu_register.py -m dev -p biosample -w -i ${opref}_biosample.tsv
 fi
