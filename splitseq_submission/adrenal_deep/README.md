@@ -1,10 +1,10 @@
 ```bash
-sample='heart_deep'
-fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/heart/fastq/deep/
+sample='adrenal_deep'
+fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/
 cd ${fastq_dir}
 mkdir submission
 cd submission
-ln -s ../H_*fastq.gz .
+ln -s ../A_*fastq.gz .
 ```
 
 File name format <tissue>_<age>_<sex>_<replicate>
