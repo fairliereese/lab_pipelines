@@ -74,6 +74,7 @@ def main():
     file_sub = pd.DataFrame()
 
     for f in glob.glob(ext):
+        f_full_path = f
         f = os.path.basename(f)
 
         tissue, age, sex, rep = get_metadata(f)
@@ -209,7 +210,7 @@ def main():
 
         file['aliases'] = file_alias
         file['dataset'] = exp_alias
-        file['submitted_file_name'] = os.path.abspath(f)
+        file['submitted_file_name'] = f_full_path
         file['replicate'] = rep_alias
         file['file_format'] = 'fastq'
         file['output_type'] = 'reads'
