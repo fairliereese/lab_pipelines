@@ -23,8 +23,14 @@ def get_args():
     return args
 
 def get_metadata(f):
-    tissue, age, sex, rep = f.split('_')
-    rep = rep.split('.')[0]
+    try:
+        tissue, age, sex, rep = f.split('_')
+        rep = rep.split('.')[0]
+    except: # for some reason adrenal is named weirdly
+        tissue, age, temp = f.split('_')
+        temp = temp.split('.')[0]
+        sex = temp[0]
+        rep = temp[1]
     tissue = tissue.split('/')[-1]
     return tissue, age, sex, rep
 
