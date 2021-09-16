@@ -22,7 +22,7 @@ fastq_dir=${fastq_dir}/submission/
 python ${d}make_submission_spreadsheets.py \
   -d ${fastq_dir} \
   -o ${fastq_dir}${sample} \
-  --deep \
+  --shallow \
   -lib_meta=${meta_dir}/${sample}_metadata.tsv
 ```
 
