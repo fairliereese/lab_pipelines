@@ -54,3 +54,8 @@ bash demultiplex.sh $opref
 ```bash
 bash minimap.sh $opref
 ```
+
+## 7. Tag reads with cell barcode and UMI
+```bash
+bash add_bam_tag.sh $opref
+```
