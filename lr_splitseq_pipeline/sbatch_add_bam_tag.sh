@@ -16,5 +16,5 @@ sam=${opref}_mapped.sam
 
 python ~/mortazavi_lab/bin/LR-splitpipe/LR-splitpipe/add_bam_tag.py \
   -s $sam \
-  --merge-primers \
+  --merge_primers \
   -o ${opref}
