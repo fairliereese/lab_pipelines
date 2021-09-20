@@ -13,7 +13,7 @@
 opref=$1
 
 fastq=${opref}_demux.fastq
-genome=~/mortazavi_lab/ref/mm10/mm10.fa
+ref=~/mortazavi_lab/ref/mm10/mm10.fa
 sam=${opref}_mapped.sam
 log=${opref}_minimap.log
 
