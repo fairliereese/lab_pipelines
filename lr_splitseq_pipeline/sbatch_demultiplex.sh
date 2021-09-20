@@ -5,7 +5,7 @@
 #SBATCH -o processing_tables/%x.o%A_%a
 #SBATCH -e processing_tables/%x.e%A_%a
 #SBATCH --partition=standard
-#SBATCH --time=12:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mail-type=START,END
 #SBATCH --mem=64G
 #SBATCH --mail-user=freese@uci.edu
