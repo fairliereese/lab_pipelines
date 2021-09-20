@@ -12,7 +12,7 @@
 
 opref=$1
 fastq=${opref}.fastq
-python ~/mortazavi_lab/bin/pacbio-splitpipe/LR-splitpipe/demultiplex.py \
+python ~/mortazavi_lab/bin/LR-splitpipe/LR-splitpipe/demultiplex.py \
     -f ${fastq} \
     -o ${opref} \
     -t 32 \
