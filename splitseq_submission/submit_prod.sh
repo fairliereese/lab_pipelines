@@ -15,6 +15,7 @@ conda activate encode_submissions
 
 opref=$1
 biosamp=$2
+file=$3
 
 # 1 = submit biosample
 # 0 = do not submit biosample
@@ -26,4 +27,10 @@ fi
 eu_register.py -m prod -p experiment -w -i ${opref}_experiment.tsv
 eu_register.py -m prod -p library -w -i ${opref}_library.tsv
 eu_register.py -m prod -p replicate -w -i ${opref}_rep.tsv
-eu_register.py -m prod -p file -w -i ${opref}_file.tsv
+
+# 1 = submit files
+# 0 = do not submit files
+if [ $file -eq 1 ]
+then
+  eu_register.py -m prod -p file -w -i ${opref}_file.tsv
+fi

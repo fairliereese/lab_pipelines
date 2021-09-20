@@ -39,3 +39,16 @@ meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
 sbatch ${d}submit_prod.sh ${fastq_dir}${sample}_sr 1
 ```
+
+I fugged up
+```bash
+# first submit to test
+meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
+d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
+sbatch ${d}submit_dev.sh ${fastq_dir}${sample}_sr 0 0
+
+# then submit to prod
+meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
+d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
+sbatch ${d}submit_prod.sh ${fastq_dir}${sample}_sr 0 0
+```
