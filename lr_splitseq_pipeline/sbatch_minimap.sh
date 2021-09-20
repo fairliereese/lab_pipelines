@@ -10,7 +10,7 @@
 #SBATCH --mem=64G
 #SBATCH --mail-user=freese@uci.edu
 
-fastq="${opref}_demux.fastq"
+fastq=${opref}_demux.fastq
 genome=~/mortazavi_lab/ref/mm10/mm10.fa
 sam=${opref}_mapped.sam
 log=${opref}_minimap.log

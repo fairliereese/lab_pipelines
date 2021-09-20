@@ -41,11 +41,16 @@ bash refine.sh samples.tsv
 ```
 ## 4. Concatenate fastqs
 ```bash
-opref=<output directory + prefix>
+opref=<output dir + prefix>
 bash concat_fastqs.sh samples.tsv $opref
 ```
 
-## 4. Demultiplex Split-seq barcodes
+## 5. Demultiplex Split-seq barcodes
 ```bash
 bash demultiplex.sh $opref
+```
+
+## 6. Map Split-seq data
+```bash
+bash minimap.sh $opref
 ```
