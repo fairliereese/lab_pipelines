@@ -16,4 +16,4 @@ python ~/mortazavi_lab/bin/LR-splitpipe/LR-splitpipe/demultiplex.py \
     -f ${fastq} \
     -o ${opref} \
     -t 32 \
-    -rc 500
+    -rc 0
