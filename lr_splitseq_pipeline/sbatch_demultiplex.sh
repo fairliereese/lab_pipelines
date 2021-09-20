@@ -2,8 +2,8 @@
 #SBATCH --job-name=demux
 #SBATCH -n 32
 #SBATCH -A SEYEDAM_LAB
-#SBATCH -o processing_tables/%x.o%A_%a
-#SBATCH -e processing_tables/%x.e%A_%a
+#SBATCH -o processing_tables/%x.o%A
+#SBATCH -e processing_tables/%x.e%A
 #SBATCH --partition=standard
 #SBATCH --time=24:00:00
 #SBATCH --mail-type=START,END
