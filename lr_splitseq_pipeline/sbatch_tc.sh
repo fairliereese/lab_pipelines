@@ -1,16 +1,19 @@
 #!/bin/bash
-#$ -q som,bio
-#$ -pe one-node-mpi 4
-#$ -R y
-#$ -N tc
-#$ -m ea
-#$ -cwd
-#$ -j y
+#SBATCH --job-name=tc
+#SBATCH -n 32
+#SBATCH -A SEYEDAM_LAB
+#SBATCH -o processing_tables/%x.o%A
+#SBATCH -e processing_tables/%x.e%A
+#SBATCH --partition=standard
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=START,END
+#SBATCH --mem=64G
+#SBATCH --mail-user=freese@uci.edu
 
 module load samtools
 
 opref=$1
-sam=${opref}.sam
+sam=${opref}_mapped.sam
 sam_noscaff=${opref}_sorted_no_scaff.sam
 
 # references
