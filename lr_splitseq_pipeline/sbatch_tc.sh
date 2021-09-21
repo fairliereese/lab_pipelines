@@ -9,9 +9,9 @@
 
 module load samtools
 
-sam=$1
-pref="${sam%.sam}"
-sam_noscaff=${pref}_sorted_no_scaff.sam
+opref=$1
+sam=${opref}.sam
+sam_noscaff=${opref}_sorted_no_scaff.sam
 
 # references
 tc_path=/dfs6/pub/freese/mortazavi_lab/bin/TranscriptClean/
@@ -22,7 +22,7 @@ sjs=/data/users/freese/mortazavi_lab/ref/mm10/mm10_SJs.tsv
 # remove reads that mapped to scaffold chromosomes and sort
 grep -v '^@' $sam | awk ""'{if($3 !~ "_") print $0}'" "| \
           cat <(samtools view -H $sam) - | samtools view -bS | \
-          samtools sort | samtools view -h > $sam_noscaff 
+          samtools sort | samtools view -h > $sam_noscaff
 
 # run tc
 time python ${tc_path}TranscriptClean.py \
@@ -33,4 +33,4 @@ time python ${tc_path}TranscriptClean.py \
     --canonOnly \
     --primaryOnly \
     --deleteTmp \
-    --outprefix ${pref}    
+    --outprefix ${opref}
