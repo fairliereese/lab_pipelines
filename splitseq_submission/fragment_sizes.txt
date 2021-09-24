@@ -1,0 +1,9 @@
+cortex_shallow	427
+cortex_deep	430
+heart_shallow	421
+heart_deep	455
+adrenal_deep	433
+hippocampus_shallow	431
+hippocampus_deep	469
+gastroc_deep	432
+adrenal_shallow	493
