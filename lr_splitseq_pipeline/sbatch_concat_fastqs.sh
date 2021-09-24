@@ -15,13 +15,13 @@ ifile=$1
 opref=$2
 
 ofile=${opref}.fastq
+touch ${ofile}
 rm $ofile
 touch ${ofile}
 
 while read sample
 do
   # extract PBID
-  i=$SLURM_ARRAY_TASK_ID
   pb_id=`echo $sample | cut -f1 -d' '`
   smrt_cell=`echo $sample | cut -f4 -d' '`
 

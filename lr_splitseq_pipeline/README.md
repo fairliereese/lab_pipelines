@@ -55,7 +55,17 @@ bash demultiplex.sh $opref
 bash minimap.sh $opref
 ```
 
-## 7. Tag reads with cell barcode and UMI
+## 7. Run TC
+```bash
+bash tc.sh $opref
+```
+
+## 8. Tag reads with cell barcode and UMI
 ```bash
 bash add_bam_tag.sh $opref
+```
+
+## 9. Run TALON
+```bash
+bash talon.sh $opref
 ```

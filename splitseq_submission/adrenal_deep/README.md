@@ -39,3 +39,11 @@ meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
 sbatch ${d}submit_prod.sh ${fastq_dir}${sample}_sr 1
 ```
+
+Patch fragment size
+
+```bash
+conda activate encode_submissions
+eu_register.py -m prod -p library -i ~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/adrenal_deep/adrenal_deep_sr_library_patch.tsv --patch
+
+```

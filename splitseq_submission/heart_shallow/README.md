@@ -51,4 +51,33 @@ sbatch ${d}submit_dev.sh ${fastq_dir}${sample}_sr 0 0
 meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
 sbatch ${d}submit_prod.sh ${fastq_dir}${sample}_sr 0 0
+
+# patch files
+conda activate encode_submissions
+eu_register.py -m dev -p file -i ~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/heart_shallow/heart_shallow_sr_file_patch.tsv --patch -w
+
+eu_register.py -m prod -p file -i ~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/heart_shallow/heart_shallow_sr_file_patch.tsv --patch -w
+```
+
+Patch fragment size
+local
+```bash
+tissue=heart
+depth=shallow
+data_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/${tissue}/fastq/${depth}/submission/
+bin_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
+script=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/patch_frag_size.py
+scp freese@hpc3.rcic.uci.edu:${data_dir}${tissue}_${depth}_sr_library.tsv ${bin_dir}
+cp ${bin_dir}${tissue}_${depth}_sr_library.tsv ${bin_dir}${tissue}_${depth}_sr_library_patch.tsv
+python ${script} ${bin_dir}${tissue}_${depth}_sr_library_patch.tsv ${tissue}_${depth}
+scp ${bin_dir}${tissue}_${depth}_sr_library_patch.tsv freese@hpc3.rcic.uci.edu:~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
+```
+
+```bash
+tissue=heart
+depth=shallow
+data_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/${tissue}/fastq/${depth}/submission/
+bin_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
+conda activate encode_submissions
+eu_register.py -m prod -p library -i ${bin_dir}/${tissue}_${depth}_sr_library_patch.tsv --patch
 ```

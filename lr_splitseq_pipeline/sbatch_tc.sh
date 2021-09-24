@@ -32,7 +32,7 @@ time python ${tc_path}TranscriptClean.py \
     --sam $sam_noscaff \
     --genome $genome \
     --spliceJns $sjs \
-    -t 4 \
+    -t 32 \
     --canonOnly \
     --primaryOnly \
     --deleteTmp \
