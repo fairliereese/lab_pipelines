@@ -158,14 +158,6 @@ def main():
         lib['lab'] = lab
         lib['award'] = award
 
-        cols = ['aliases', 'biosample', 'nucleic_acid_term_name',
-                'documents', 'construction_method', 'nucleic_acid_starting_quantity',
-                'nucleic_acid_starting_quantity_units', 'strand_specificity',
-                'lab', 'award']
-        lib = lib[cols]
-
-        lib_sub = pd.concat([lib_sub, lib], axis=0)
-
         # add replicate
         rep = temp.copy(deep=True)
 
@@ -184,9 +176,6 @@ def main():
         rep['experiment'] = exp_alias
         rep['biological_replicate_number'] = temp.rep.values[0]
         rep['technical_replicate_number'] = 1
-
-        cols = ['aliases', 'library', 'experiment', 'biological_replicate_number', 'technical_replicate_number']
-        rep = rep[cols]
 
         rep_sub = pd.concat([rep_sub, rep], axis=0)
 
@@ -224,14 +213,6 @@ def main():
             cols.append('run_type')
         file = file[cols]
         file_sub = pd.concat([file_sub, file], axis=0)
-
-
-    # drop unnecessary columns
-    drop = ['tissue_desc', 'age_desc', 'rep_desc', 'rep']
-    biosamp_sub.drop(drop, axis=1, inplace=True)
-
-    # for exp, also drop duplicate aliases
-    exp_sub.drop_duplicates(inplace=True)
 
     # save each table
     if not long:
