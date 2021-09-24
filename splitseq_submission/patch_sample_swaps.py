@@ -10,8 +10,6 @@ def get_args():
         help='directory where split fastqs are')
     parser.add_argument('-o', dest='opref',
         help='output directory to save tsvs')
-    parser.add_argument('-lib_meta', dest='lib_meta',
-        help='path to library metadata from google doc') # https://docs.google.com/spreadsheets/d/1r8mA9f5PMzWgSax7mSsH0r_mQGBCYnrs9SrgY6t2jKY/edit#gid=0
     parser.add_argument('--long', dest='long', action='store_true',
         help='long read experiment')
     parser.add_argument('--deep', dest='deep', action='store_true',
@@ -51,7 +49,6 @@ def main():
     else:
         lib_type = None
         raise Exception('Either --deep or --shallow required')
-    lib_meta = args.lib_meta
     opref = args.opref
 
     # read metadata
@@ -64,8 +61,6 @@ def main():
     age_df.set_index('short', inplace=True)
     sex_df.set_index('short', inplace=True)
     rep_df.set_index('short', inplace=True)
-    lib_meta = pd.read_csv(lib_meta, sep='\t')
-    lib_meta['# predicted nuclei'] = lib_meta['# predicted nuclei'].astype('int')
 
     # globals
     lab = 'ali-mortazavi'
@@ -101,7 +96,6 @@ def main():
                                               temp.tissue_desc.values[0], temp.rep_desc.values[0])
         biosamp_alias = 'ali-mortazavi:biosample_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
-        biosample['date_obtained'] = lib_meta.loc[lib_meta['Sample ID'] == sample_id, 'Date shipped'].values[0]
         biosample['description'] = desc
         biosample['aliases'] = biosamp_alias
         biosample['lab'] = lab
@@ -159,7 +153,6 @@ def main():
         lib['biosample'] = biosamp_alias
         lib['nucleic_acid_term_name'] = 'RNA'
         lib['construction_method'] = 'Parse Single Cell Whole Transcriptome Kit'
-        lib['nucleic_acid_starting_quantity'] = lib_meta.loc[lib_meta['Sample ID'] == sample_id, '# predicted nuclei'].values[0]
         lib['nucleic_acid_starting_quantity_units'] = 'cells'
 
         lib['lab'] = lab
