@@ -197,20 +197,11 @@ def main():
         if lib_type:
             file_alias += '_{}'.format(lib_type)
 
-        file['aliases'] = file_alias
+        file['record_id'] = file_alias
         file['dataset'] = exp_alias
-        file['submitted_file_name'] = f_full_path
         file['replicate'] = rep_alias
-        file['file_format'] = 'fastq'
-        file['output_type'] = 'reads'
-        file['lab'] = lab
-        file['award'] = award
 
-        cols = ['aliases', 'dataset', 'submitted_file_name',
-                'replicate', 'file_format', 'output_type', 'platform', 'lab', 'award']
-        if long == False:
-            cols.append('read_length')
-            cols.append('run_type')
+        cols = ['record_id', 'dataset', 'replicate']
         file = file[cols]
         file_sub = pd.concat([file_sub, file], axis=0)
 
@@ -221,8 +212,9 @@ def main():
         opref = '{}_lr'.format(opref)
 
     # file
-    fname = opref+'_file.tsv'
+    fname = opref+'_file_patch.tsv'
     file_sub.to_csv(fname, index=False, sep='\t')
+    file_sub = file_sub[['aliases', 'dataset', 'replicate']]
     file_sub.head()
 
 if __name__ == '__main__':
