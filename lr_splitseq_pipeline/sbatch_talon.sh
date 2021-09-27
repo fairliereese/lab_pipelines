@@ -2,8 +2,8 @@
 #SBATCH --job-name=talon
 #SBATCH -n 32
 #SBATCH -A SEYEDAM_LAB
-#SBATCH -o ~/mortazavi_lab/bin/lab_pipelines/lr_splitseq_pipeline/processing_tables/%x.o%A
-#SBATCH -e ~/mortazavi_lab/bin/lab_pipelines/lr_splitseq_pipeline/processing_tables/%x.e%A
+#SBATCH -o processing_tables/%x.o%A
+#SBATCH -e processing_tables/%x.e%A
 #SBATCH --partition=standard
 #SBATCH --time=24:00:00
 #SBATCH --mail-type=START,END
