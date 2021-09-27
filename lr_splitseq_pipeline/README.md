@@ -67,5 +67,6 @@ bash add_bam_tag.sh $opref
 
 ## 9. Run TALON
 ```bash
-bash talon.sh $opref
+sample=< sample name >
+bash talon.sh $opref $sample
 ```

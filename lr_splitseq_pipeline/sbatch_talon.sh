@@ -7,11 +7,10 @@
 #$ -cwd
 #$ -j y
 
-d=
-f=$1
+opref=$1
 sample=$2
-gtf=$3
-oprefix=$4
+sam=${opref}_merged_primers.sam
+gtf=~/mortazavi_lab/ref/gencode.vM21/gencode.vM21.primary_assembly.annotation_UCSC_names.gtf
 
 talon_initialize_database \
     --f ${gtf} \
@@ -21,14 +20,14 @@ talon_initialize_database \
     --idprefix ENCODEM \
     --5p 500 \
     --3p 300 \
-    --o ${oprefix}
+    --o ${opref}
 
-printf "${sample},SequelII,${f}" > ${oprefix}_config.csv
+printf "${sample},SequelII,${sam}" > ${opref}_config.csv
 
 talon \
-    --f ${oprefix}_config.csv \
+    --f ${opref}_config.csv \
     --cb \
-    --db ${oprefix}.db \
+    --db ${opref}.db \
     --build mm10 \
     -t 16 \
-    --o ${oprefix}
+    --o ${opref}
