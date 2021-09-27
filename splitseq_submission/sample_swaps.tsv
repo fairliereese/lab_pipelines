@@ -1,5 +1,11 @@
+sample_id_old	sample_id_new
 A_14_M_1	A_14_F_2
 A_25_M_1	A_25_F_2
 A_36_M_1	A_36_F_2
 A_2m_M_1	A_2m_F_2
 A_18m_M_1	A_18m_F_2
+A_14_F_2	A_14_M_1
+A_25_F_2	A_25_M_1
+A_36_F_2	A_36_M_1
+A_2m_F_2	A_2m_M_1
+A_18m_F_2	A_18m_M_1
