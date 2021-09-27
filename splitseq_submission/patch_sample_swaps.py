@@ -16,7 +16,7 @@ def get_args():
         help='deep sequencing experiment')
     parser.add_argument('--shallow', dest='shallow', action='store_true',
         help='shallow sequencing experiment')
-    parser.add_argument('--include_depth', dest='include_depth', action='store_true')
+    parser.add_argument('--exclude_depth', dest='exclude_depth', action='store_true')
 
     args = parser.parse_args()
     return args
@@ -50,8 +50,8 @@ def main():
     else:
         lib_type = None
         raise Exception('Either --deep or --shallow required')
-    include_depth = args.include_depth
-    if not include_depth:
+    exclude_depth = args.exclude_depth
+    if exclude_depth:
         lib_type = False
     opref = args.opref
 
