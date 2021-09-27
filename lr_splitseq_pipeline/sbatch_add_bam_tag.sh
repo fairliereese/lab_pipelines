@@ -12,7 +12,7 @@
 
 opref=$1
 
-sam=${opref}_mapped.sam
+sam=${opref}_clean.sam
 
 python ~/mortazavi_lab/bin/LR-splitpipe/LR-splitpipe/add_bam_tag.py \
   -s $sam \
