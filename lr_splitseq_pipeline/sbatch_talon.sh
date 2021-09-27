@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=talon
-#SBATCH -n 32
+#SBATCH -n 16
 #SBATCH -A SEYEDAM_LAB
 #SBATCH -o processing_tables/%x.o%A
 #SBATCH -e processing_tables/%x.e%A
 #SBATCH --partition=standard
 #SBATCH --time=24:00:00
 #SBATCH --mail-type=START,END
-#SBATCH --mem=64G
+#SBATCH --mem=32G
 #SBATCH --mail-user=freese@uci.edu
 
 opref=$1
