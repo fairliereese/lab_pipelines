@@ -1,11 +1,14 @@
 #!/bin/bash
-#$ -q som,bio
-#$ -pe one-node-mpi 16
-#$ -R y
-#$ -N TALON
-#$ -m ea
-#$ -cwd
-#$ -j y
+#SBATCH --job-name=talon
+#SBATCH -n 32
+#SBATCH -A SEYEDAM_LAB
+#SBATCH -o processing_tables/%x.o%A
+#SBATCH -e processing_tables/%x.e%A
+#SBATCH --partition=standard
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=START,END
+#SBATCH --mem=64G
+#SBATCH --mail-user=freese@uci.edu
 
 opref=$1
 sample=$2
