@@ -16,6 +16,7 @@ def get_args():
         help='deep sequencing experiment')
     parser.add_argument('--shallow', dest='shallow', action='store_true',
         help='shallow sequencing experiment')
+    parser.add_argument('--include_depth', dest='include_depth', action='store_true')
 
     args = parser.parse_args()
     return args
@@ -49,6 +50,9 @@ def main():
     else:
         lib_type = None
         raise Exception('Either --deep or --shallow required')
+    include_depth = args.include_depth
+    if not include_depth:
+        lib_type = False
     opref = args.opref
 
     # read metadata
@@ -200,8 +204,9 @@ def main():
         file['record_id'] = file_alias
         file['dataset'] = exp_alias
         file['replicate'] = rep_alias
+        file['sample_id'] = sample_id
 
-        cols = ['record_id', 'dataset', 'replicate']
+        cols = ['record_id', 'dataset', 'replicate', 'sample_id']
         file = file[cols]
         file_sub = pd.concat([file_sub, file], axis=0)
 
@@ -211,10 +216,34 @@ def main():
     else:
         opref = '{}_lr'.format(opref)
 
-    # file
-    fname = opref+'_file_patch.tsv'
-    file_sub.to_csv(fname, index=False, sep='\t')
-    file_sub.head()
+    # fix sample swaps
+    swaps = pd.read_csv('{}/sample_swaps.tsv'.format(cwd), sep='\t')
+    # old_records = df.merge(swaps['sample_id_old'], how='inner', left_on='sample_id', right_on='sample_id_old')
+    print(swaps.columns)
+    print(file_sub.columns)
+    swaps = file_sub.merge(swaps[['sample_id_old', 'sample_id_new']], how='inner', left_on='sample_id', right_on='sample_id_old')
+    swaps.drop('sample_id_old', axis=1, inplace=True)
+
+    # new_records = df.merge(swaps['sample_id_new'], how='inner', left_on='sample_id_old', right_on='sample_id_new')
+    # new_records.rename({'record_id_old': 'record_id_new',
+    #                     'dataset'})
+    swaps = swaps.merge(file_sub, how='inner', left_on='sample_id_new', right_on='sample_id', suffixes=('_new', '_old'))
+    swaps.record_id_new = swaps.record_id_new+'_temp'
+    swaps.rename({'record_id_new': 'aliases',
+                  'dataset_new': 'dataset',
+                  'replicate_new': 'replicate',
+                  'record_id_old': 'record_id'}, axis=1, inplace=True)
+    swaps = swaps[['record_id', 'aliases', 'dataset', 'replicate']]
+    swaps.head()
+
+    fname = '{}_file_patch_1.tsv'.format(opref)
+    swaps.to_csv(fname, index=False, sep='\t')
+
+    swaps = swaps[['aliases']]
+    swaps.rename({'aliases': 'record_id'}, axis=1, inplace=True)
+    swaps['aliases'] = swaps.record_id.str.rstrip('_temp')
+    fname = '{}_file_patch_2.tsv'.format(opref)
+    swaps.to_csv(fname, index=False, sep='\t')
 
 if __name__ == '__main__':
     main()
