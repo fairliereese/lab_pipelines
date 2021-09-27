@@ -214,7 +214,6 @@ def main():
     # file
     fname = opref+'_file_patch.tsv'
     file_sub.to_csv(fname, index=False, sep='\t')
-    file_sub = file_sub[['aliases', 'dataset', 'replicate']]
     file_sub.head()
 
 if __name__ == '__main__':
