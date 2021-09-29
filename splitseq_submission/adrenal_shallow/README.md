@@ -69,9 +69,20 @@ tissue=adrenal
 depth=shallow
 data_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/${tissue}/fastq/submission/
 bin_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
-script=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/patch_sample_swap.py
-scp freese@hpc3.rcic.uci.edu:${data_dir}${tissue}_sr_file.tsv ${bin_dir}
-cp ${bin_dir}${tissue}_sr_file.tsv ${bin_dir}${tissue}_${depth}_sr_file_patch.tsv
-python ${script} ${bin_dir}${tissue}_${depth}_sr_file_patch.tsv ${tissue}_${depth}
-scp ${bin_dir}${tissue}_${depth}_sr_file_patch.tsv freese@hpc3.rcic.uci.edu:~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
+script=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/patch_sample_swaps.py
+cp ${data_dir}${tissue}_sr_file.tsv ${bin_dir}${tissue}_${depth}_sr_file_patch.tsv
+d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
+fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/submission/
+python ${script} \
+  -d ${fastq_dir} \
+  -o ${bin_dir}${tissue}_${depth} \
+  --shallow \
+  --exclude_depth
+
+conda activate encode_submissions
+eu_register.py -m dev -p file -i ${bin_dir}/${tissue}_${depth}_sr_file_patch_1.tsv --patch -w
+eu_register.py -m dev -p file -i ${bin_dir}/${tissue}_${depth}_sr_file_patch_2.tsv --patch -w
+
+eu_register.py -m prod -p file -i ${bin_dir}/${tissue}_${depth}_sr_file_patch_1.tsv --patch -w
+eu_register.py -m prod -p file -i ${bin_dir}/${tissue}_${depth}_sr_file_patch_2.tsv --patch -w
 ```

@@ -241,7 +241,11 @@ def main():
 
     swaps = swaps[['aliases']]
     swaps.rename({'aliases': 'record_id'}, axis=1, inplace=True)
-    swaps['aliases'] = swaps.record_id.str.rstrip('_temp')
+    swaps.to_csv('test1.csv')
+    print(swaps.head())
+    swaps['aliases'] = swaps.record_id.str.rsplit(pat='_', n=1, expand=True)[0]
+    print(swaps.head())
+    swaps.to_csv('test2.csv')
     fname = '{}_file_patch_2.tsv'.format(opref)
     swaps.to_csv(fname, index=False, sep='\t')
 

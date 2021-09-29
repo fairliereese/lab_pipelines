@@ -59,6 +59,8 @@ def main():
     age_df = pd.read_csv('{}/age_metadata.tsv'.format(cwd), sep='\t')
     sex_df = pd.read_csv('{}/sex_metadata.tsv'.format(cwd), sep='\t')
     rep_df = pd.read_csv('{}/rep_metadata.tsv'.format(cwd), sep='\t')
+    frag_df = pd.read_csv('{}/fragment_size.txt'.format(cwd), sep='\t',
+        header=None, names=['sample', 'frag_size'])
     tissue_df.set_index('short', inplace=True)
     age_df.set_index('short', inplace=True)
     sex_df.set_index('short', inplace=True)
@@ -140,6 +142,9 @@ def main():
         # add library
         lib = temp.copy(deep=True)
 
+        sample_name = sample+'_'+lib_type
+        frag_size = frag_df.loc[frag_df['sample']==sample_name, 'frag_size'].values[0]
+
         if long == False:
             lib_alias = 'ali-mortazavi:library_sr_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                                  temp.tissue_desc.values[0], temp.rep.values[0])
@@ -157,6 +162,7 @@ def main():
         lib['aliases'] = lib_alias
         lib['biosample'] = biosamp_alias
         lib['nucleic_acid_term_name'] = 'RNA'
+        lib['average_fragment_size'] = frag_size
         lib['construction_method'] = 'Parse Single Cell Whole Transcriptome Kit'
         lib['nucleic_acid_starting_quantity'] = lib_meta.loc[lib_meta['Sample ID'] == sample_id, '# predicted nuclei'].values[0]
         lib['nucleic_acid_starting_quantity_units'] = 'cells'
