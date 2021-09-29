@@ -59,7 +59,7 @@ def main():
     age_df = pd.read_csv('{}/age_metadata.tsv'.format(cwd), sep='\t')
     sex_df = pd.read_csv('{}/sex_metadata.tsv'.format(cwd), sep='\t')
     rep_df = pd.read_csv('{}/rep_metadata.tsv'.format(cwd), sep='\t')
-    frag_df = pd.read_csv('{}/fragment_size.txt'.format(cwd), sep='\t',
+    frag_df = pd.read_csv('{}/fragment_sizes.txt'.format(cwd), sep='\t',
         header=None, names=['sample', 'frag_size'])
     tissue_df.set_index('short', inplace=True)
     age_df.set_index('short', inplace=True)
