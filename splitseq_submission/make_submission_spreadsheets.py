@@ -146,8 +146,6 @@ def main():
         if tissue_long == 'gastrocnemius':
             tissue_long = 'gastroc'
         sample_name = tissue_long+'_'+lib_type
-        print(sample_name)
-        print(frag_df)
         frag_size = frag_df.loc[frag_df['sample']==sample_name, 'frag_size'].values[0]
 
         if long == False:

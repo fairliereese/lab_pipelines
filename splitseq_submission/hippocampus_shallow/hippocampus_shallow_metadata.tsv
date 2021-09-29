@@ -1,0 +1,23 @@
+Tissue	Sex	Timepoint	Rep	weight (mg)	lysis buffer (mL)	Date shipped	Fixation date	Sample ID	[# nuclei] on cell counter x10^6	# nuclei on cell counter x 10^6	nuclei per mL (must be >1x10^6)	estimated nuclei (x10^6) per mL	nuclei per ul	# aliquots	uL per aliquot	wells in Barcoding plate	ul	# predicted nuclei	# nuclei > xxxx genes	Reads cut off	# of Reads
+Hippocampus	Female	PND10	"10,11,12"		2	2021-08-31	9/10/21	HC_10_F_1				11.05	11050	3	100	A1-A2	15ul	3125			
+Hippocampus	Female	PND10	"13,14,15"		2	2021-08-31	9/9/21	HC_10_F_2				9.1	9100	3	100	B1-B2	15ul	3125			
+Hippocampus	Male	PND10	"13,14,15"		2	2021-08-31	9/9/21	HC_10_M_1				7.1	7100	3	100	C1-C2	15ul	3125			
+Hippocampus	Male	PND10	"16,17,18"		2	2021-08-31	9/10/21	HC_10_M_2				8.7	8700	3	100	D1-D2	15ul	3125			
+Hippocampus	Female	PND14	"13,14,15"		2	2021-08-31	9/10/21	HC_14_F_1				10.15	10150	3	100	A3-A4	15ul	3125			
+Hippocampus	Female	PND14	"16,17,18"		2	2021-08-31	9/8/21	HC_14_F_2				11.25	11250	3	100	B3-B4	15ul	3125			
+Hippocampus	Male	PND14	"1,2,3"		2	2021-08-31	9/9/21	HC_14_M_1				7.85	7850	3	100	C3-C4	15ul	3125			
+Hippocampus	Male	PND14	"16,17,18"		2	2021-08-31	9/10/21	HC_14_M_2				7.5	7500	3	100	D3-D4	15ul	3125			
+Hippocampus	Female	PND25	"1,2,3"		2	2021-08-31	9/10/21	HC_25_F_1				9.5	9500	3	100	A5-A6	15ul	3125			
+Hippocampus	Female	PND25	"4,5,6"		2	2021-08-31	9/9/21	HC_25_F_2				10.4	10400	3	100	B5-B6	15ul	3125			
+Hippocampus	Male	PND25	"1,2,3,"		2	2021-08-31	9/8/21	HC_25_M_1				17	17000	3	100	C5-C6	15ul	3125			
+Hippocampus	Male	PND25	"4,5,6"		2	2021-08-31	9/10/21	HC_25_M_2				9.8	9800	3	100	D5-D6	15ul	3125			
+Hippocampus	Female	PND36	1		2	2021-08-31	9/10/21	HC_36_F_1				6.7	6700	3	100	A7-A8	15ul	3125			
+Hippocampus	Female	PND36	2		2	2021-08-31	9/9/21	HC_36_F_2				8.35	8350	3	100	B7-B8	15ul	3125			
+Hippocampus	Male	PND36	1		2	2021-08-31	9/9/21	HC_36_M_1				7.2	7200	3	100	C7-C8	15ul	3125			
+Hippocampus	Male	PND36	2		2	2021-08-31	9/8/21	HC_36_M_2				5.45	5450	3	100	D7-D8	15ul	3125			
+Hippocampus	Female	PND2month	7		2	2021-08-31	9/10/21	HC_2m_F_1				6.4	6400	3	100	A9-A10	15ul	3125			
+Hippocampus	Female	PND2month	8		2	2021-08-31	9/9/21	HC_2m_F_2				8.4	8400	3	100	B9-B10	15ul	3125			
+Hippocampus	Male	PND2month	7		2	2021-08-31	9/8/21	HC_2m_M_1				7.81	7810	3	100	C9-C10	15ul	3125			
+Hippocampus	Male	PND2month	8		2	2021-08-31	9/9/21	HC_2m_M_2				7.7	7700	3	100	D9-D10	15ul	3125			
+Hippocampus	Male	PND18month	"17,18"			2021-08-31		HC_18m_M_1				8.9	8900	3	100	"A11-A12,C11-C12"	15ul	6250			
+Hippocampus	Male	PND18month	"19,20"			2021-08-31		HC_18m_M_2				7.65	7650	3	100	"B11-B12,D11-D12"	15ul	6250			
