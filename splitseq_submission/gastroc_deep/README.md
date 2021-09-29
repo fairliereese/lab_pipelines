@@ -37,7 +37,7 @@ sbatch ${d}submit_dev.sh ${fastq_dir}${sample}_sr 1 1
 # then submit to prod
 meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
-sbatch ${d}submit_prod.sh ${fastq_dir}${sample}_sr 1
+sbatch ${d}submit_prod.sh ${fastq_dir}${sample}_sr 1 1
 ```
 
 Patch fragment size
