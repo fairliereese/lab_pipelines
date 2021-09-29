@@ -1,6 +1,6 @@
 ```bash
-sample='gastroc_deep'
-fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/gastroc_requeue/fastq/deep/
+sample='gastroc_shallow'
+fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/gastroc_requeue/fastq/shallow/
 cd ${fastq_dir}
 mkdir submission
 cd submission
@@ -22,7 +22,7 @@ fastq_dir=${fastq_dir}/submission/
 python ${d}make_submission_spreadsheets.py \
   -d ${fastq_dir} \
   -o ${fastq_dir}${sample} \
-  --deep \
+  --shallow \
   -lib_meta=${meta_dir}/${sample}_metadata.tsv
 ```
 
@@ -32,7 +32,7 @@ Submit files
 # first submit to test
 meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
-sbatch ${d}submit_dev.sh ${fastq_dir}${sample}_sr 1 1
+sbatch ${d}submit_dev.sh ${fastq_dir}${sample}_sr 1
 
 # then submit to prod
 meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
@@ -44,7 +44,7 @@ Patch fragment size
 local
 ```bash
 tissue=gastroc
-depth=deep
+depth=shallow
 data_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/${tissue}/fastq/${depth}/submission/
 bin_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
 script=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/patch_frag_size.py
@@ -56,7 +56,7 @@ scp ${bin_dir}${tissue}_${depth}_sr_library_patch.tsv freese@hpc3.rcic.uci.edu:~
 
 ```bash
 tissue=gastroc
-depth=deep
+depth=shallow
 data_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/${tissue}/fastq/${depth}/submission/
 bin_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
 conda activate encode_submissions
