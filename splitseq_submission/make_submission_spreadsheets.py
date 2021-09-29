@@ -98,6 +98,7 @@ def main():
 
         # add biosample
         biosample = temp.copy(deep=True)
+        tissue_long = temp.tissue_desc.values[0]
         desc = 'B6Cast F1 {} {} {} {}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                               temp.tissue_desc.values[0], temp.rep_desc.values[0])
         biosamp_alias = 'ali-mortazavi:biosample_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
@@ -142,7 +143,9 @@ def main():
         # add library
         lib = temp.copy(deep=True)
 
-        sample_name = sample+'_'+lib_type
+        if tissue_long == 'gastrocnemius':
+            tissue_long = 'gastroc'
+        sample_name = tissue_long+'_'+lib_type
         frag_size = frag_df.loc[frag_df['sample']==sample_name, 'frag_size'].values[0]
 
         if long == False:
@@ -172,7 +175,8 @@ def main():
 
         cols = ['aliases', 'biosample', 'nucleic_acid_term_name',
                 'documents', 'construction_method', 'nucleic_acid_starting_quantity',
-                'nucleic_acid_starting_quantity_units', 'strand_specificity',
+                'nucleic_acid_starting_quantity_units', 'average_fragment_size',
+                'strand_specificity',
                 'lab', 'award']
         lib = lib[cols]
 
