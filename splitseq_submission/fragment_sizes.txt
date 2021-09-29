@@ -7,4 +7,4 @@ hippocampus_shallow	431
 hippocampus_deep	469
 gastroc_deep	432
 adrenal_shallow	493
-gastroc_shallow 442
+gastroc_shallow	442
