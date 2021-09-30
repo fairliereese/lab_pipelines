@@ -99,8 +99,13 @@ def main():
         # add biosample
         biosample = temp.copy(deep=True)
         tissue_long = temp.tissue_desc.values[0]
-        desc = 'B6Cast F1 {} {} {} {}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
-                                              temp.tissue_desc.values[0], temp.rep_desc.values[0])
+        if tissue != 'HC':
+            desc = 'B6Cast F1 {} {} {} {}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
+                                                  temp.tissue_desc.values[0], temp.rep_desc.values[0])
+        else:
+            desc = 'B6Cast F1 {} {} {} {}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
+                                                temp.tissue_desc.values[0], temp.rep.values[0])
+
         biosamp_alias = 'ali-mortazavi:biosample_{}_{}_{}_{}'.format(temp.age_desc.values[0], temp.model_organism_sex.values[0],
                                                              temp.tissue_desc.values[0], temp.rep.values[0])
         biosample['date_obtained'] = lib_meta.loc[lib_meta['Sample ID'] == sample_id, 'Date shipped'].values[0]

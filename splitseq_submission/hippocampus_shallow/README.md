@@ -1,6 +1,6 @@
 ```bash
-sample='hippocampus_deep'
-fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/hippocampus/fastq/deep/
+sample='hippocampus_shallow'
+fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/hippocampus/fastq/shallow/
 cd ${fastq_dir}
 mkdir submission
 cd submission
@@ -22,7 +22,7 @@ fastq_dir=${fastq_dir}/submission/
 python ${d}make_submission_spreadsheets.py \
   -d ${fastq_dir} \
   -o ${fastq_dir}${sample} \
-  --deep \
+  --shallow \
   -lib_meta=${meta_dir}/${sample}_metadata.tsv
 ```
 
@@ -32,7 +32,7 @@ Submit files
 # first submit to test
 meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
-sbatch ${d}submit_dev.sh ${fastq_dir}${sample}_sr 0 1
+sbatch ${d}submit_dev.sh ${fastq_dir}${sample}_sr 1 1
 
 # then submit to prod
 meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
