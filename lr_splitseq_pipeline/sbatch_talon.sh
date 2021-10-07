@@ -12,25 +12,35 @@
 
 opref=$1
 sample=$2
+db=$3
 sam=${opref}_merged_primers.sam
 gtf=~/mortazavi_lab/ref/gencode.vM21/gencode.vM21.primary_assembly.annotation_UCSC_names.gtf
 
-talon_initialize_database \
-    --f ${gtf} \
-    --g mm10 \
-    --a gencode_vM21 \
-    --l 0 \
-    --idprefix ENCODEM \
-    --5p 500 \
-    --3p 300 \
-    --o ${opref}
+if [ -z "$db" ]
+  then
+    echo "No database given. Will make new database."
+
+    talon_initialize_database \
+        --f ${gtf} \
+        --g mm10 \
+        --a gencode_vM21 \
+        --l 0 \
+        --idprefix ENCODEM \
+        --5p 500 \
+        --3p 300 \
+        --o ${opref}
+      db=${opref}.db
+
+  else
+    echo "Adding reads to database ${db}"
+fi
 
 printf "${sample},SequelII,${sam}" > ${opref}_config.csv
 
 talon \
     --f ${opref}_config.csv \
     --cb \
-    --db ${opref}.db \
+    --db ${db} \
     --build mm10 \
     -t 16 \
     --o ${opref}
