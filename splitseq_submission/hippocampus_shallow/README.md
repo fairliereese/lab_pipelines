@@ -39,3 +39,32 @@ meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
 d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
 sbatch ${d}submit_prod.sh ${fastq_dir}${sample}_sr 1 1
 ```
+
+Add R2 reads
+```bash
+# hpc
+sample='hippocampus_shallow'
+tissue=hippocampus
+depth=shallow
+
+fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/hippocampus/fastq/shallow
+cd ${fastq_dir}
+meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
+d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
+fastq_dir=${fastq_dir}/submission/
+bin_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
+
+cd ${fastq_dir}
+ln -s ../HC_*R2*fastq.gz .
+
+python ${d}make_index_reads.py \
+  -d ${fastq_dir} \
+  -o ${fastq_dir}${sample} \
+  --shallow \
+  -lib_meta=${meta_dir}/${sample}_metadata.tsv
+
+conda activate encode_submissions
+eu_register.py -m dev -p file -i ${fastq_dir}/${tissue}_${depth}_sr_r2_file.tsv
+
+eu_register.py -m prod -p file -i ${fastq_dir}/${tissue}_${depth}_sr_r2_file.tsv
+```

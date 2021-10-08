@@ -70,3 +70,28 @@ eu_register.py -m dev -p file -i ${bin_dir}/${tissue}_${depth}_sr_file_patch_2.t
 eu_register.py -m prod -p file -i ${bin_dir}/${tissue}_${depth}_sr_file_patch_1.tsv --patch -w
 eu_register.py -m prod -p file -i ${bin_dir}/${tissue}_${depth}_sr_file_patch_2.tsv --patch -w
 ```
+
+Add R2 reads
+```bash
+# hpc
+sample='adrenal_deep'
+tissue=adrenal
+depth=deep
+
+fastq_dir=/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/
+cd ${fastq_dir}
+meta_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${sample}
+d=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/
+fastq_dir=${fastq_dir}/submission/
+bin_dir=~/mortazavi_lab/bin/lab_pipelines/splitseq_submission/${tissue}_${depth}/
+python ${d}make_index_reads.py \
+  -d ${fastq_dir} \
+  -o ${fastq_dir}${sample} \
+  --deep \
+  -lib_meta=${meta_dir}/${sample}_metadata.tsv
+
+conda activate encode_submissions
+eu_register.py -m dev -p file -i ${fastq_dir}/${tissue}_${depth}_sr_r2_file.tsv
+
+eu_register.py -m prod -p file -i ${fastq_dir}/${tissue}_${depth}_sr_r2_file.tsv
+```

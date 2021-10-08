@@ -23,20 +23,35 @@ def get_args():
     return args
 
 def get_metadata(f):
+    n_ = f.count('_')
     try:
-        tissue, age, sex, rep, read = f.split('_')
-        rep = rep.split('.')[0]
+        if n_ == 4:
+            tissue, age, sex, rep, read = f.split('_')
+            rep = rep.split('.')[0]
+        elif n_ == 3:
+            tissue, age, sex, rep = f.split('_')
+            rep = rep.split('.')[0]
     except: # for some reason adrenal is named weirdly
-        tissue, age, temp, read = f.split('_')
-        temp = temp.split('.')[0]
-        sex = temp[0]
-        rep = temp[1]
+        if n_ == 4:
+            tissue, age, temp, read = f.split('_')
+            temp = temp.split('.')[0]
+            sex = temp[0]
+            rep = temp[1]
+        elif n_ == 3:
+            tissue, age, temp = f.split('_')
+            temp = temp.split('.')[0]
+            sex = temp[0]
+            rep = temp[1]
     tissue = tissue.split('/')[-1]
     return tissue, age, sex, rep
 
 def get_sample_id(f):
     s = f.split('/')[-1]
     s = s.split('.')[0]
+
+    n_ = f.count('_')
+    if n_ == 4:
+        s = '_'.join(s.split('_')[:-1])
     return s
 
 def main():
@@ -85,9 +100,14 @@ def main():
         f_full_path = f
         f = os.path.basename(f)
 
+        n_ = f.count('_')
         tissue, age, sex, rep = get_metadata(f)
         sample_id = get_sample_id(f)
         print(sample_id)
+        # print(tissue)
+        # print(age)
+        # print(sex)
+        # print(rep)
 
         # assemble metadata for this sample
         temp = tissue_df.loc[tissue]
@@ -250,14 +270,20 @@ def main():
         file.rename({'aliases': 'index_of'}, axis=1, inplace=True)
         file.output_type = 'index reads'
         file.read_length = 86
-        read_struct = """{"sequence_element": "UMI", "start": 1, "end": 10},
-                         {"sequence_element": "cell barcode", "start": 11, "end": 18},
-                         {"sequence_element": "cell barcode", "start": 49, "end": 56},
-                         {"sequence_element": "cell barcode", "start": 79, "end": 86}"""
+        read_struct = """{"sequence_element": "UMI", "start": 1, "end": 10},"""+\
+                      """{"sequence_element": "barcode", "start": 11, "end": 18},"""+\
+                      """{"sequence_element": "barcode", "start": 49, "end": 56},"""+\
+                      """{"sequence_element": "barcode", "start": 79, "end": 86}"""
         file['read_structure'] = read_struct
         file[['aliases_prefix', 'aliases_suffix']] = file.index_of.str.split('_', n=1, expand=True)
         file['aliases'] = file.aliases_prefix+'_r2_'+file.aliases_suffix
-        file['file_pref'] = file.submitted_file_name.str.rsplit('.', n=2, expand=True)[0]
+
+        if n_ == 4:
+            file['file_pref'] = file.submitted_file_name.str.rsplit('.', n=2, expand=True)[0]
+            file['file_pref'] = file.submitted_file_name.str.rsplit('_', n=1, expand=True)[0]
+        elif n_ == 3:
+            file['file_pref'] = file.submitted_file_name.str.rsplit('.', n=2, expand=True)[0]
+
         file.submitted_file_name = file.file_pref+'_R2.fastq.gz'
 
         file.drop(['aliases_prefix', 'aliases_suffix',
@@ -266,6 +292,9 @@ def main():
 
     # drop non-index reads
     file_sub = file_sub.loc[file_sub.output_type == 'index reads']
+
+    # remove duplicates
+    file_sub = file_sub.loc[~file_sub.duplicated()]
 
     # drop unnecessary columns
     drop = ['tissue_desc', 'age_desc', 'rep_desc', 'rep']
@@ -281,8 +310,15 @@ def main():
         opref = '{}_lr'.format(opref)
 
     # file
-    fname = opref+'_file.tsv'
-    file_sub.to_csv(fname, index=False, sep='\t')
+    fname = opref+'_r2_file.tsv'
+    file_sub.drop('run_type', axis=1, inplace=True)
+    s = file_sub.to_csv(index=False, sep='\t').replace('""', '"')
+    s = s.replace('\t"', '\t')
+    s = s.replace('""\t', '\t')
+    s = s.replace('"\n', '\n')
+    ofile = open(fname, 'w')
+    ofile.write(s)
+    ofile.close()
 
 if __name__ == '__main__':
     main()
