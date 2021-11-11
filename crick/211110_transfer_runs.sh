@@ -15,11 +15,15 @@ modelad_runs=211110_modelad_files.tsv
 # log file
 log=211110_log.txt
 touch $log
+rm $log
+touch $log
 
 # first tenner lab runs
+echo "T E N N E R"
 runs=$tenner_runs
 dos2unix $runs
 backup_dirs=( $dir1 $dir2 )
+dest_dir=$tenner
 while read run
 do
   echo "Run number ${run}"
@@ -32,18 +36,18 @@ do
     do
       if test -f "$f"; then
         echo "Copying file ${f}..."
-        # cp $f $model_ad
+        cp $f $dest_dir
         fname=$(basename $f)
         old_size=`ls -lat ${f} | cut -d' ' -f5`
-        new_size=`ls -lat ${model_ad}${fname} | cut -d' ' -f5`
+        new_size=`ls -lat ${dest_dir}${fname} | cut -d' ' -f5`
 
         if [ "${old_size}" == "${new_size}" ]; then
-        	echo "Files are the same size in ${d} and ${model_ad}, deleting from ${runs_dir}"
-        	# rm -f ${f}
+        	echo "Files are the same size in ${d} and ${dest_dir}, deleting from ${runs_dir}"
+        	rm -f ${f}
         else
         	echo "Files are not the same size. Not deleting" >> $log
         	echo "Size of ${f}: $old_size" >> $log
-        	echo "Size of ${model_ad}${fname}: $new_size" >> $log
+        	echo "Size of ${dest_dir}${fname}: $new_size" >> $log
           printf "${run}\n" >> $log
         fi
       fi
@@ -53,9 +57,11 @@ do
 done < $runs
 
 # then model ad runs
+echo "M O D E L A D"
 runs=$modelad_runs
 dos2unix $runs
 backup_dirs=( $dir1 $dir2 )
+dest_dir=$modelad
 while read run
 do
   echo "Run number ${run}"
@@ -68,18 +74,18 @@ do
     do
       if test -f "$f"; then
         echo "Copying file ${f}..."
-        # cp $f $model_ad
+        cp $f $dest_dir
         fname=$(basename $f)
         old_size=`ls -lat ${f} | cut -d' ' -f5`
-        new_size=`ls -lat ${model_ad}${fname} | cut -d' ' -f5`
+        new_size=`ls -lat ${dest_dir}${fname} | cut -d' ' -f5`
 
         if [ "${old_size}" == "${new_size}" ]; then
-        	echo "Files are the same size in ${d} and ${model_ad}, deleting from ${runs_dir}"
-        	# rm -f ${f}
+        	echo "Files are the same size in ${d} and ${dest_dir}, deleting from ${runs_dir}"
+        	rm -f ${f}
         else
         	echo "Files are not the same size. Not deleting" >> $log
         	echo "Size of ${f}: $old_size" >> $log
-        	echo "Size of ${model_ad}${fname}: $new_size" >> $log
+        	echo "Size of ${dest_dir}${fname}: $new_size" >> $log
           printf "${run}\n" >> $log
         fi
       fi
