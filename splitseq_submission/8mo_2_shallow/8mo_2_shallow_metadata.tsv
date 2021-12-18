@@ -1,0 +1,25 @@
+Tissue	Sex	Timepoint	Rep	weight (mg)	lysis buffer (mL)	Date shipped	Fixation date	Sample ID	[# nuclei] on cell counter x10^6	# nuclei on cell counter x 10^6	nuclei per mL (must be >1x10^6)	estimated nuclei (x10^6) per mL	nuclei per ul	# aliquots	uL per aliquot	wells in Barcoding plate	ul	# predicted nuclei for shallow datasets	# predicted nuclei for deep datasets	# nuclei > xxxx genes	Reads cut off	# of Reads	Fragment size (bp)
+Adrenal	Male	PND8month	B6/Cast 27		2	8/31/21	10/20/21	B_A_27				4.56	4560	3	100	A1-A2	15ul	3125					469
+Adrenal	Male	PND8month	B6/Cast 28		2	8/31/21	10/20/21	B_A_28				7.83	7830	3	100	B1-B2	15ul	3125					469
+Adrenal	Female	PND8month	B6/Cast 29		2	8/31/21	10/20/21	B_A_29				5.16	5160	3	100	C1-C2	15ul	3125					469
+Adrenal	Female	PND8month	B6/Cast 30		2	8/31/21	10/20/21	B_A_30				9.12	9120	3	100	D1-D2	15ul	3125					469
+Adrenal	Female	PND8month	5x/Cast 33		2	8/31/21	10/20/21	X_A_33				8.16	8160	3	100	A3-A4	15ul	3125					469
+Adrenal	Female	PND8month	5x/Cast 34		2	8/31/21	10/20/21	X_A_34				7.62	7620	3	100	B3-B4	15ul	3125					469
+Adrenal	Male	PND8month	5x/Cast 35		2	8/31/21	10/20/21	X_A_35				6.57	6570	3	100	C3-C4	15ul	3125					469
+Adrenal	Male	PND8month	5x/Cast 36		2	8/31/21	10/20/21	X_A_36				5.64	5640	3	100	D3-D4	15ul	3125					469
+Heart	Male	PND8month	B6/Cast 27	233.1	5	8/31/21	10/21/21	B_H_27				6	6000	3	100	A5-A6	15ul	3125					469
+Heart	Male	PND8month	B6/Cast 28	251.4	5	8/31/21	10/21/21	B_H_28				6.93	6930	3	100	B5-B6	15ul	3125					469
+Heart	Female	PND8month	B6/Cast 29	141.4	3	8/31/21	10/21/21	B_H_29				4.2	4200	3	100	C5-C6	15ul	3125					469
+Heart	Female	PND8month	B6/Cast 30	129.2	3	8/31/21	10/21/21	B_H_30				5.92	5920	3	100	D5-D6	15ul	3125					469
+Heart	Female	PND8month	5x/Cast 33	136.4	3	8/31/21	10/21/21	X_H_33				6.47	6470	3	100	A7-A8	15ul	3125					469
+Heart	Female	PND8month	5x/Cast 34	143.5	3	8/31/21	10/21/21	X_H_34				4.97	4970	3	100	B7-B8	15ul	3125					469
+Heart	Male	PND8month	5x/Cast 35	218.5	5	8/31/21	10/21/21	X_H_35				9.34	9340	3	100	C7-C8	15ul	3125					469
+Heart	Male	PND8month	5x/Cast 36	217.2	5	8/31/21	10/21/21	X_H_36				6.4	6400	3	100	D7-D8	15ul	3125					469
+Gastrocnemius	Male	PND8month	B6/Cast 27	481.4	8	8/31/21	10/26/21	B_G_27				4.71	4710	3	100	A9-A10	15ul	3125					469
+Gastrocnemius	Male	PND8month	B6/Cast 28	479.9	8	8/31/21	10/26/21	B_G_28				3.69	3690	3	100	B9-B10	15ul	3125					469
+Gastrocnemius	Female	PND8month	B6/Cast 29	338.7	6	8/31/21	10/22/21	B_G_29				4.32	4320	3	100	C9-C10	15ul	3125					469
+Gastrocnemius	Female	PND8month	B6/Cast 30	302.7	6	8/31/21	10/22/21	B_G_30				3.87	3870	3	100	D9-D10	15ul	3125					469
+Gastrocnemius	Female	PND8month	5x/Cast 33	325.8	6	8/31/21	10/22/21	X_G_33				2.73	2730	3	100	A11-A12	15ul	3125					469
+Gastrocnemius	Female	PND8month	5x/Cast 34	331.2	6	8/31/21	10/22/21	X_G_34				2.76	2760	3	100	B11-B12	15ul	3125					469
+Gastrocnemius	Male	PND8month	5x/Cast 35	475.5	8	8/31/21	10/26/21	X_G_35				4.8	4800	3	100	C11-C12	15ul	3125					469
+Gastrocnemius	Male	PND8month	5x/Cast 36	436.9	8	8/31/21	10/26/21	X_G_36				2.76	2760	3	100	D11-D12	15ul	3125					469
