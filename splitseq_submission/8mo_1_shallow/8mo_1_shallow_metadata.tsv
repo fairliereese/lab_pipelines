@@ -1,0 +1,17 @@
+Tissue	Sex	Timepoint	Rep	weight (mg)	lysis buffer (mL)	Date shipped	Fixation date	Sample ID	[# nuclei] on cell counter x10^6	# nuclei on cell counter x 10^6	nuclei per mL (must be >1x10^6)	estimated nuclei (x10^6) per mL	nuclei per ul	# aliquots	uL per aliquot	wells in Barcoding plate	ul	# predicted nuclei for shallow datasets	# predicted nuclei for deep datasets	# nuclei > xxxx genes	Reads cut off	# of Reads	Fragment size (bp)
+L. cortex	Female	PND8month	B6/Cast 27		4	8/31/21	9/17/21	B_C_27				7.6	7600	3	100	A1-A3	15ul	4688					433
+L. cortex	Female	PND8month	B6/Cast 28		4	8/31/21	9/17/21	B_C_28				6.3	6300	3	100	B1-B3	15ul	4688					433
+L. cortex	Male	PND8month	B6/Cast 29		4	8/31/21	9/17/21	B_C_29				8.8	8800	3	100	C1-C3	15ul	4688					433
+L. cortex	Male	PND8month	B6/Cast 30		4	8/31/21	9/17/21	B_C_30				7.9	7900	3	100	D1-D3	15ul	4688					433
+Hippocampus	Female	PND8month	B6/Cast 27		2	8/31/21	9/16/21	B_HC_27				5.5	5500	3	100	A4-A6	15ul	4688					433
+Hippocampus	Female	PND8month	B6/Cast 28		2	8/31/21	9/16/21	B_HC_28				12.9	12900	3	100	B4-B6	15ul	4688					433
+Hippocampus	Male	PND8month	B6/Cast 29		2	8/31/21	9/16/21	B_HC_29				10.1	10100	3	100	C4-C6	15ul	4688					433
+Hippocampus	Male	PND8month	B6/Cast 30		2	8/31/21	9/16/21	B_HC_30				12.5	12500	3	100	D4-D6	15ul	4688					433
+L. cortex	Female	PND8month	5x/Cast 33		4	9/7/21	9/17/21	X_C_33				8.4	8400	3	100	A7-A9	15ul	4688					433
+L. cortex	Female	PND8month	5x/Cast 34		4	9/7/21	9/17/21	X_C_34				7.7	7700	3	100	B7-B9	15ul	4688					433
+L. cortex	Male	PND8month	5x/Cast 35		4	9/7/21	9/17/21	X_C_35				7.4	7400	3	100	C7-C9	15ul	4688					433
+L. cortex	Male	PND8month	5x/Cast 36		4	9/7/21	9/17/21	X_C_36				5.5	5500	3	100	D7-D9	15ul	4688					433
+Hippocampus	Female	PND8month	5x/Cast 33		2	9/7/21	9/16/21	X_HC_33				8.1	8100	3	100	A10-A12	15ul	4688					433
+Hippocampus	Female	PND8month	5x/Cast 34		2	9/7/21	9/16/21	X_HC_34				7.5	7500	3	100	B10-B12	15ul	4688					433
+Hippocampus	Male	PND8month	5x/Cast 35		2	9/7/21	9/16/21	X_HC_35				4.8	4800	3	100	C10-C12	15ul	4688					433
+Hippocampus	Male	PND8month	5x/Cast 36		2	9/7/21	9/16/21	X_HC_36				5.7	5700	3	100	D10-D12	15ul	4688					433

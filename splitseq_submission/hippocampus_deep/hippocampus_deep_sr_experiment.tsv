@@ -1,0 +1,12 @@
+aliases	biosample_ontology	description	assay_term_name	lab	award
+ali-mortazavi:exp_sr_P25_male_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P25 male hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P2mo_male_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P2mo male hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P2mo_female_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P2mo female hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P18-20mo_male_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P18-20mo male hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P36_female_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P36 female hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P14_female_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P14 female hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P14_male_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P14 male hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P36_male_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P36 male hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P10_male_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P10 male hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P25_female_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P25 female hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_P10_female_hippocampus_deep	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6Cast F1 P10 female hippocampus deep	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443

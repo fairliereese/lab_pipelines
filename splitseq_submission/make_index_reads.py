@@ -18,6 +18,7 @@ def get_args():
         help='deep sequencing experiment')
     parser.add_argument('--shallow', dest='shallow', action='store_true',
         help='shallow sequencing experiment')
+    parser.add_argument('--exclude_depth', dest='exclude_depth', action='store_true')
 
     args = parser.parse_args()
     return args
@@ -61,11 +62,16 @@ def main():
     long = args.long
     if args.deep:
         lib_type = 'deep'
+        depth = 'deep'
     elif args.shallow:
         lib_type = 'shallow'
+        depth = 'shallow'
     else:
         lib_type = None
         raise Exception('Either --deep or --shallow required')
+    exclude_depth = args.exclude_depth
+    if exclude_depth:
+        lib_type = False
     lib_meta = args.lib_meta
     opref = args.opref
 
@@ -170,7 +176,10 @@ def main():
 
         if tissue_long == 'gastrocnemius':
             tissue_long = 'gastroc'
-        sample_name = tissue_long+'_'+lib_type
+        if lib_type:
+            sample_name = tissue_long+'_'+lib_type
+        else:
+            sample_name = tissue_long+'_'+depth
         frag_size = frag_df.loc[frag_df['sample']==sample_name, 'frag_size'].values[0]
 
         if long == False:
