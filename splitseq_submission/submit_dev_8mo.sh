@@ -32,6 +32,6 @@ eu_register.py -m dev -p replicate -w -i ${opref}_rep.tsv
 # 0 = do not submit files
 if [ $file -eq 1 ]
 then
-  eu_register.py -m dev -p file -w -i ${opref}_r1.tsv
-  eu_register.py -m dev -p file -w -i ${opref}_r2.tsv
+  eu_register.py -m dev -p file -w -i ${opref}_r1_fastq.tsv
+  eu_register.py -m dev -p file -w -i ${opref}_r2_fastq.tsv
 fi
