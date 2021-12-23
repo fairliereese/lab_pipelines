@@ -1,0 +1,9 @@
+aliases	biosample_ontology	description	assay_term_name	lab	award
+ali-mortazavi:exp_sr_B6Cast_P8mo_female_cortex_shallow	/biosample-types/tissue_NTR_0000646/	Short-read Split-seq B6/Cast F1 P8mo female cortex_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_B6Cast_P8mo_male_cortex_shallow	/biosample-types/tissue_NTR_0000646/	Short-read Split-seq B6/Cast F1 P8mo male cortex_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_B6Cast_P8mo_female_hippocampus_shallow	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6/Cast F1 P8mo female hippocampus_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_B6Cast_P8mo_male_hippocampus_shallow	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq B6/Cast F1 P8mo male hippocampus_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_5xFADCast_P8mo_female_cortex_shallow	/biosample-types/tissue_NTR_0000646/	Short-read Split-seq 5xFAD/Cast F1 P8mo female cortex_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_5xFADCast_P8mo_male_cortex_shallow	/biosample-types/tissue_NTR_0000646/	Short-read Split-seq 5xFAD/Cast F1 P8mo male cortex_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_5xFADCast_P8mo_female_hippocampus_shallow	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq 5xFAD/Cast F1 P8mo female hippocampus_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443
+ali-mortazavi:exp_sr_5xFADCast_P8mo_male_hippocampus_shallow	/biosample-types/tissue_UBERON_0002305/	Short-read Split-seq 5xFAD/Cast F1 P8mo male hippocampus_shallow	single-cell RNA sequencing assay	ali-mortazavi	UM1HG009443

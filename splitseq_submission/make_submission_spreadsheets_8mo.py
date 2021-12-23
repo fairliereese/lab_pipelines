@@ -17,7 +17,6 @@ def get_args():
     parser.add_argument('--lib_type', dest='lib_type',
         help='additional details about exp such as "deep", "shallow", "ont_match_deep"',
         default=False)
-    parser.add_argument('--deep', dest='deep', action='store_true')
 
     args = parser.parse_args()
     return args
@@ -214,6 +213,8 @@ def main():
 
     df = df.merge(exp_merge, how='left', on=['alias_genotype', 'age_desc',
             'model_organism_sex', 'tissue_desc'])
+    print(exp_merge.head())
+    print(df.head())
     df = df.merge(lib_merge, how='left', on=['alias_genotype', 'age_desc',
             'model_organism_sex', 'tissue_desc', 'rep'])
     df['biological_replicate_number'] = df['rep']
@@ -324,5 +325,5 @@ def main():
 
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
