@@ -9,7 +9,7 @@ import multiprocessing
 def get_args():
     parser = ArgumentParser()
     parser.add_argument('-o', dest='opref',
-        help='output directory / prefix to save split fastqs')
+        help='output directory to save split fastqs')
     parser.add_argument('-cell_meta', dest='cell_meta',
         help='path to library metadata from google doc')
     parser.add_argument('-sp_fastq', dest='sp_fastq',
@@ -20,11 +20,13 @@ def get_args():
         help='unprocessed read 2 fastq')
     parser.add_argument('-t', dest='threads',
         help='number of threads to run on')
+    parser.add_argument('--adrenal', dest='adrenal', action='store_true',
+        default=False, help='whether or not to assume adrenal-style sample naming')
     args = parser.parse_args()
     return args
 
 def create_sample_fastqs(sample, bcs, opref, fq, fq_r1, fq_r2):
-    reads_oname = '{}_{}_names.txt'.format(opref, sample)
+    reads_oname = '{}{}_names.txt'.format(opref, sample)
     awk_str = "cat {} | grep ^@ | awk '{{if (".format(fq)
     for i, bc in enumerate(bcs):
         if i == len(bcs)-1:
@@ -37,8 +39,8 @@ def create_sample_fastqs(sample, bcs, opref, fq, fq_r1, fq_r2):
     subprocess.run(awk_str, shell=True)
 
     # run seqtk to find these reads
-    r1_fq_oname = '{}_{}_r1.fastq'.format(opref, sample)
-    r2_fq_oname = '{}_{}_r2.fastq'.format(opref, sample)
+    r1_fq_oname = '{}{}.fastq'.format(opref, sample)
+    r2_fq_oname = '{}{}_R2.fastq'.format(opref, sample)
 
     seqtk_1_str = 'seqtk subseq {} {} > {}'.format(fq_r1, reads_oname, r1_fq_oname)
     seqtk_2_str = 'seqtk subseq {} {} > {}'.format(fq_r2, reads_oname, r2_fq_oname)
@@ -49,6 +51,13 @@ def create_sample_fastqs(sample, bcs, opref, fq, fq_r1, fq_r2):
     # delete read name files
     os.remove(reads_oname)
 
+    # gzip fastqs
+    gzip_1_str = 'gzip {}'.format(r1_fq_oname)
+    gzip_2_str = 'gzip {}'.format(r2_fq_oname)
+
+    subprocess.run(gzip_1_str, shell=True)
+    subprocess.run(gzip_2_str, shell=True)
+
 def main():
     args = get_args()
     meta_file = args.cell_meta
@@ -57,6 +66,7 @@ def main():
     fq_r1 = args.fastq_1
     fq_r2 = args.fastq_2
     threads = int(args.threads)
+    adrenal = args.adrenal
 
     # get bc1 randhex / dt info
     d = os.path.dirname(__file__)
@@ -81,21 +91,29 @@ def main():
                   left_on='rnd1_well',
                   right_on='well')
 
+    # fix adrenal names
+    if adrenal:
+        df['sample_new'] = df['sample'].str[:-1]+'_'+df['sample'].str[-1]
+        # print(df.head())
+        df.drop('sample', axis=1, inplace=True)
+        df.rename({'sample_new': 'sample'}, axis=1, inplace=True)
+        # print(df.head())
+
     # create a dictionary mapping sample id :: valid bc1s
     sample_bc_dict = defaultdict(list)
     for ind, entry in df.iterrows():
         sample_bc_dict[entry['sample']].append(entry.bc1)
 
-    print(sample_bc_dict)
+    # print(sample_bc_dict)
     tuples = list([(key,item) for key, item in sample_bc_dict.items()])
     samples = [i[0] for i in tuples]
     bcs = [i[1] for i in tuples]
 
-    # just limit to 4 samples for testing purposes
-    samples = samples[:4]
-    bcs = bcs[:4]
-    print(samples)
-    print(bcs)
+    # # just limit to 4 samples for testing purposes
+    # samples = samples[:4]
+    # bcs = bcs[:4]
+    # print(samples)
+    # print(bcs)
 
     # make sure number of threads is compatible with the system
     max_cores = multiprocessing.cpu_count()
@@ -108,33 +126,6 @@ def main():
         pool.starmap(create_sample_fastqs, zip(samples, bcs,
                      repeat(opref), repeat(fq),
                      repeat(fq_r1), repeat(fq_r2)))
-    # for key, items in sample_bc_dict.items():
-        # reads_oname = '{}_{}_names.txt'.format(opref, key)
-        # awk_str = "cat {} | grep ^@ | awk '{{if (".format(fq)
-        # for i, bc in enumerate(items):
-        #     if i == len(items)-1:
-        #         awk_str = awk_str + """substr($0,18,8)=="{}") print $0}}' | awk '{{split($0,a,"_"); print a[4]}}' | awk '{{split($0,a," "); print a[1]}}' > {}""".format(bc, reads_oname)
-        #
-        #     else:
-        #         awk_str += 'substr($0,18,8)=="{}"||'.format(bc)
-        #
-        # # run awk command and write to output file by sample
-        # subprocess.run(awk_str, shell=True)
-        #
-        # # run seqtk to find these reads
-        # r1_fq_oname = '{}_{}_r1.fastq'.format(opref, key)
-        # r2_fq_oname = '{}_{}_r2.fastq'.format(opref, key)
-        #
-        # seqtk_1_str = 'seqtk subseq {} {} > {}'.format(fq_r1, reads_oname, r1_fq_oname)
-        # seqtk_2_str = 'seqtk subseq {} {} > {}'.format(fq_r2, reads_oname, r2_fq_oname)
-        #
-        # subprocess.run(seqtk_1_str, shell=True)
-        # subprocess.run(seqtk_2_str, shell=True)
-        #
-        # # delete read name files
-        # os.remove(reads_oname)
-        #
-        # break
 
 if __name__ == '__main__':
     main()
