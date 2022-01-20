@@ -9,6 +9,6 @@ opref = sys.argv[2]
 
 df = pd.read_csv(ifile, sep='\t')
 
-df = df['submitted_file_name'].to_frame()
+df = df['aliases'].to_frame()
 ofile = '{}_file_ids.tsv'.format(opref)
 df.to_csv(ofile, sep='\t')
