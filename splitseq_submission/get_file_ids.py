@@ -18,3 +18,17 @@ df = pd.read_csv(ifile_r2, sep='\t')
 df = df['aliases'].to_frame()
 
 df.to_csv(ofile, sep='\t', index=False, mode='a', header=None)
+
+
+# dump path and id to new file
+ofile = '{}_reupload_fastq.tsv'.format(opref)
+
+df = pd.read_csv(ifile_r1, sep='\t')
+df = df[['aliases', 'submitted_file_name']]
+
+df.to_csv(ofile, sep='\t', index=False)
+
+df = pd.read_csv(ifile_r2, sep='\t')
+df = df[['aliases', 'submitted_file_name']]
+
+df.to_csv(ofile, sep='\t', index=False, mode='a', header=None)
