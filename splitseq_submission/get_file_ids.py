@@ -27,7 +27,7 @@ df = pd.read_csv(ifile_r1, sep='\t')
 df = df[['aliases', 'submitted_file_name']]
 
 if 'adrenal_shallow' in opref:
-    df.submitted_file_name = df.submitted_file_name.rsplit('/', n=1, expand=True)[-1]
+    df.submitted_file_name = df.submitted_file_name.str.rsplit('/', n=1, expand=True)[-1]
     d = '/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/'
     df.submitted_file_name = d+df.submitted_file_name
 
