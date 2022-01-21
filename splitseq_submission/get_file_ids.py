@@ -17,4 +17,4 @@ df.to_csv(ofile, sep='\t', index=False)
 df = pd.read_csv(ifile_r2, sep='\t')
 df = df['aliases'].to_frame()
 
-df.to_csv(ofile, sep='\t', index=False, mode='a')
+df.to_csv(ofile, sep='\t', index=False, mode='a', header=None)
