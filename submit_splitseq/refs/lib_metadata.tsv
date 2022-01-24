@@ -1,0 +1,141 @@
+Tissue	Sex	Timepoint	Rep	Sample ID	depth1	depth2	batch	run_number	Date shipped	Fragment size (bp)	# of input cells	Path to R1 fastq	Path to R2 fastq	Path to STARSolo output folder
+Adrenal	Female	PND4	1	A_4_F_1	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_F_1_R2.fastq.gz	
+Adrenal	Female	PND4	2	A_4_F_2	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_F_2_R2.fastq.gz	
+Adrenal	Male	PND4	1	A_4_M_1	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_M_1_R2.fastq.gz	
+Adrenal	Male	PND4	2	A_4_M_2	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_4_M_2_R2.fastq.gz	
+Adrenal	Female	PND10	1	A_10_F_1	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_F_1_R2.fastq.gz	
+Adrenal	Female	PND10	2	A_10_F_2	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_F_2_R2.fastq.gz	
+Adrenal	Male	PND10	1	A_10_M_1	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_M_1_R2.fastq.gz	
+Adrenal	Male	PND10	2	A_10_M_2	shallow	12k	normal	1005	7/8/21	493	1562	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_10_M_2_R2.fastq.gz	
+Adrenal	Female	PND14	1	A_14_F_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_F_1_R2.fastq.gz	
+Adrenal	Female	PND14	2	A_14_F_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_F_2_R2.fastq.gz	
+Adrenal	Male	PND14	1	A_14_M_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_M_1_R2.fastq.gz	
+Adrenal	Male	PND14	2	A_14_M_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_14_M_2_R2.fastq.gz	
+Adrenal	Female	PND25	1	A_25_F_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_F_1_R2.fastq.gz	
+Adrenal	Female	PND25	2	A_25_F_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_F_2_R2.fastq.gz	
+Adrenal	Male	PND25	1	A_25_M_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_M_1_R2.fastq.gz	
+Adrenal	Male	PND25	2	A_25_M_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_25_M_2_R2.fastq.gz	
+Adrenal	Female	PND36	1	A_36_F_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_F_1_R2.fastq.gz	
+Adrenal	Female	PND36	2	A_36_F_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_F_2_R2.fastq.gz	
+Adrenal	Male	PND36	1	A_36_M_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_M_1_R2.fastq.gz	
+Adrenal	Male	PND36	2	A_36_M_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_36_M_2_R2.fastq.gz	
+Adrenal	Female	PND2month	1	A_2m_F_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_F_1_R2.fastq.gz	
+Adrenal	Female	PND2month	2	A_2m_F_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_F_2_R2.fastq.gz	
+Adrenal	Male	PND2month	1	A_2m_M_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_M_1_R2.fastq.gz	
+Adrenal	Male	PND2month	2	A_2m_M_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_2m_M_2_R2.fastq.gz	
+Adrenal	Female	PND18month	1	A_18m_F_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_F_1_R2.fastq.gz	
+Adrenal	Female	PND18month	2	A_18m_F_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_F_2_R2.fastq.gz	
+Adrenal	Male	PND18month	1	A_18m_M_1	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_M_1_R2.fastq.gz	
+Adrenal	Male	PND18month	2	A_18m_M_2	shallow	12k	normal	1005	7/8/21	493	3125	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_M_2_R2.fastq.gz	
+Adrenal	Female	PND4	1	A_4_F_1	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_F_1_R2.fastq.gz	
+Adrenal	Female	PND4	2	A_4_F_2	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_F_2_R2.fastq.gz	
+Adrenal	Male	PND4	1	A_4_M_1	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_M_1_R2.fastq.gz	
+Adrenal	Male	PND4	2	A_4_M_2	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_4_M_2_R2.fastq.gz	
+Adrenal	Female	PND10	1	A_10_F_1	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_F_1_R2.fastq.gz	
+Adrenal	Female	PND10	2	A_10_F_2	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_F_2_R2.fastq.gz	
+Adrenal	Male	PND10	1	A_10_M_1	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_M_1_R2.fastq.gz	
+Adrenal	Male	PND10	2	A_10_M_2	deep	2k	normal	1010	7/8/21	433	42	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_10_M_2_R2.fastq.gz	
+Adrenal	Female	PND14	1	A_14_F_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_F_1_R2.fastq.gz	
+Adrenal	Female	PND14	2	A_14_F_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_F_2_R2.fastq.gz	
+Adrenal	Male	PND14	1	A_14_M_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_M_1_R2.fastq.gz	
+Adrenal	Male	PND14	2	A_14_M_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_14_M_2_R2.fastq.gz	
+Adrenal	Female	PND25	1	A_25_F_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_F_1_R2.fastq.gz	
+Adrenal	Female	PND25	2	A_25_F_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_F_2_R2.fastq.gz	
+Adrenal	Male	PND25	1	A_25_M_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_M_1_R2.fastq.gz	
+Adrenal	Male	PND25	2	A_25_M_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_25_M_2_R2.fastq.gz	
+Adrenal	Female	PND36	1	A_36_F_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_F_1_R2.fastq.gz	
+Adrenal	Female	PND36	2	A_36_F_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_F_2_R2.fastq.gz	
+Adrenal	Male	PND36	1	A_36_M_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_M_1_R2.fastq.gz	
+Adrenal	Male	PND36	2	A_36_M_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_36_M_2_R2.fastq.gz	
+Adrenal	Female	PND2month	1	A_2m_F_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_F_1_R2.fastq.gz	
+Adrenal	Female	PND2month	2	A_2m_F_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_F_2_R2.fastq.gz	
+Adrenal	Male	PND2month	1	A_2m_M_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_M_1_R2.fastq.gz	
+Adrenal	Male	PND2month	2	A_2m_M_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_2m_M_2_R2.fastq.gz	
+Adrenal	Female	PND18month	1	A_18m_F_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_18m_F_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_18m_F_1_R2.fastq.gz	
+Adrenal	Female	PND18month	2	A_18m_F_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_18m_F_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_18m_F_2_R2.fastq.gz	
+Adrenal	Male	PND18month	1	A_18m_M_1	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_18m_M_1.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_18m_M_1_R2.fastq.gz	
+Adrenal	Male	PND18month	2	A_18m_M_2	deep	2k	normal	1010	7/8/21	433	83	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/deep/A_18m_M_2.fastq.gz	/share/crsp/lab/seyedam/share/Heidi_Liz/adrenal/fastq/shallow/A_18m_M_2_R2.fastq.gz	
+Adrenal	Female	PND4	1	A_4_F_1	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Female	PND4	2	A_4_F_2	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Male	PND4	1	A_4_M_1	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Male	PND4	2	A_4_M_2	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Female	PND10	1	A_10_F_1	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Female	PND10	2	A_10_F_2	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Male	PND10	1	A_10_M_1	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Male	PND10	2	A_10_M_2	deep	2k	ont_match	TBD	7/8/21		42			
+Adrenal	Female	PND14	1	A_14_F_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND14	2	A_14_F_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND14	1	A_14_M_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND14	2	A_14_M_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND25	1	A_25_F_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND25	2	A_25_F_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND25	1	A_25_M_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND25	2	A_25_M_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND36	1	A_36_F_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND36	2	A_36_F_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND36	1	A_36_M_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND36	2	A_36_M_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND2month	1	A_2m_F_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND2month	2	A_2m_F_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND2month	1	A_2m_M_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND2month	2	A_2m_M_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND18month	1	A_18m_F_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Female	PND18month	2	A_18m_F_2	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND18month	1	A_18m_M_1	deep	2k	ont_match	TBD	7/8/21		83			
+Adrenal	Male	PND18month	2	A_18m_M_2	deep	2k	ont_match	TBD	7/8/21		83			
+Gastrocnemius	Female	PND4	1	G_4_F_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND4	2	G_4_F_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND4	1	G_4_M_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND4	2	G_4_M_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND10	1	G_10_F_1	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Female	PND10	2	G_10_F_2	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Male	PND10	1	G_10_M_1	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Male	PND10	2	G_10_M_2	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Female	PND14	1	G_14_F_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND14	2	G_14_F_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND14	1	G_14_M_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND14	2	G_14_M_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND25	1	G_25_F_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND25	2	G_25_F_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND25	1	G_25_M_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND25	2	G_25_M_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND36	1	G_36_F_1	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Female	PND36	2	G_36_F_2	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Male	PND36	1	G_36_M_1	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Male	PND36	2	G_36_M_2	shallow	12k	normal	1008	7/8/21	432	1302			
+Gastrocnemius	Female	PND2month	1	G_2m_F_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND2month	2	G_2m_F_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND2month	1	G_2m_M_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND2month	2	G_2m_M_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND18month	1	G_18m_F_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND18month	2	G_18m_F_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND18month	1	G_18m_M_1	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Male	PND18month	2	G_18m_M_2	shallow	12k	normal	1008	7/8/21	432	2604			
+Gastrocnemius	Female	PND4	1	G_4_F_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND4	2	G_4_F_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND4	1	G_4_M_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND4	2	G_4_M_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND10	1	G_10_F_1	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Female	PND10	2	G_10_F_2	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Male	PND10	1	G_10_M_1	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Male	PND10	2	G_10_M_2	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Female	PND14	1	G_14_F_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND14	2	G_14_F_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND14	1	G_14_M_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND14	2	G_14_M_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND25	1	G_25_F_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND25	2	G_25_F_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND25	1	G_25_M_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND25	2	G_25_M_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND36	1	G_36_F_1	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Female	PND36	2	G_36_F_2	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Male	PND36	1	G_36_M_1	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Male	PND36	2	G_36_M_2	deep	1k	normal	1008	7/8/21	407	21			
+Gastrocnemius	Female	PND2month	1	G_2m_F_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND2month	2	G_2m_F_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND2month	1	G_2m_M_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND2month	2	G_2m_M_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND18month	1	G_18m_F_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Female	PND18month	2	G_18m_F_2	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND18month	1	G_18m_M_1	deep	1k	normal	1008	7/8/21	407	42			
+Gastrocnemius	Male	PND18month	2	G_18m_M_2	deep	1k	normal	1008	7/8/21	407	42			

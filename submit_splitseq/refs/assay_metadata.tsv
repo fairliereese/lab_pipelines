@@ -1,0 +1,4 @@
+short	desc_assay	alias_assay	assay_term_name	documents	strand_specificity	platform
+illumina	Illumina short-read	illumina_sr	single-cell RNA sequencing assay	"ali-mortazavi:Split-seq_computational_protocol_v1.0,ali-mortazavi:split-seq-v1"	unstranded	encode:NextSeq2000
+pacbio	PacBio long-read	pb_lr	long read single-cell RNA-seq	"ali-mortazavi:LR-Split-seq_computational_protocol_v1.0,ali-mortazavi:split-seq-v1,ali-mortazavi:pacbio-split-seq-v1"	forward	encode:PacBio_sequel_II
+ont	ONT long-read	ont_lr	long read single-cell RNA-seq	"ali-mortazavi:LR-Split-seq_computational_protocol_v1.0,ali-mortazavi:split-seq-v1,ali-mortazavi:pacbio-split-seq-v1"	forward	OBI:0002750
