@@ -1,6 +1,8 @@
 fname=$1
 runs_dir=/runs/
 backup_dir=/big_backup2/
+#backup_dir=/big_backup/
+#backup_dir=/run/media/nextseq2000/tenner/
 
 size_runs=`ls -lat ${runs_dir}${fname} | cut -d' ' -f5`
 size_backup=`ls -lat ${backup_dir}${fname} | cut -d' ' -f5`

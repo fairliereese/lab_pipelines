@@ -1,8 +1,8 @@
 # places to look for runs
-dir1=/big_backup2/
+tenner=/big_backup2/
 
 # places to move runs
-tenner=/run/media/nextseq2000/9ac0024d-1923-4e2b-a6b8-43e69a092d1c/
+dir1=/run/media/nextseq2000/9ac0024d-1923-4e2b-a6b8-43e69a092d1c/
 
 # tenner runs
 tenner_runs=211121_transfer_runs.txt
