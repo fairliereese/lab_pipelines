@@ -1,0 +1,50 @@
+import pandas as pd
+
+configfile: 'config.yml'
+
+df = pd.read_csv('fastqs_to_compress.txt', header=None, names=['fname'])
+# df['stem'] = df.fname.str.rsplit('/', n=1, expand=True)[1]
+df['stem'] = df.fname.str.rsplit('.', n=1, expand=True)[0]
+stems = df.stem.tolist()
+
+rule all:
+    input:
+        expand(config['fastq_gz'],
+               stem=stems[0])
+
+# rule make_fastq_temp:
+#     output:
+#         fastq = temporary(config['fastq'])
+#     resources:
+#         mem_gb = 1,
+#         threads = 1
+#     shell:
+#         """
+#         touch --no-create {output.fastq}
+#         """
+
+rule bam_to_fastq:
+    input:
+        bam = config['bam']
+    output:
+        fastq = temporary(config['fastq'])
+    resources:
+        mem_gb = 48,
+        threads = 16
+    shell:
+        """
+        bedtools -i {input.bam} -o {output.fastq}
+        """
+
+rule gzip:
+    input:
+        fastq = config['fastq']
+    output:
+        fastq_gz = config['fastq_gz']
+    resources:
+        mem_gb = 16,
+        threads = 1
+    shell:
+        """
+        gzip < {input.fastq} > {output.fastq_gz}
+        """

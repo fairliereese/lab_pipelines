@@ -1,0 +1,3 @@
+bam: ./{stem}.bam
+fastq: ./{stem}.fastq
+fastq_gz: ./{stem}.fastq.gz
